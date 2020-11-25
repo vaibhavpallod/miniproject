@@ -1,0 +1,138 @@
++------+--------------------+-------------+---------+
+| ID   | NAME               | YEAR        | dept_id |
++------+--------------------+-------------+---------+
+| 37   | Vyankatesh Mundada | Third Year  |       3 |
+| 38   | Nayan Mahajan      | First Year  |       2 |
+| 39   | Vaibhav Pallod     | Second Year |       1 |
+| 42   | Sanket Patil       | Fourth Year |       3 |
+| 41   | Kshitij Patil      | Second Year |       1 |
+| 4    | Ajinkya Brahmankar | Third Year  |       3 |
++------+--------------------+-------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select*from password;
++------+--------+
+| ID   | PW     |
++------+--------+
+| 37   | venky  |
+| 38   | nyn    |
+| 39   | pallya |
+| 41   | kshtij |
+| 4    | aja    |
++------+--------+
+5 rows in set (0.00 sec)
+
+mysql> drop table stdet;
+Query OK, 0 rows affected (1.38 sec)
+
+mysql> create table stdet(id varchar(20),name varchar(50),deptid int,year varchar(50),email varchar(50));
+Query OK, 0 rows affected (1.09 sec)
+
+mysql> desc stdet;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(20) | YES  |     | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| deptid | int         | YES  |     | NULL    |       |
+| year   | varchar(50) | YES  |     | NULL    |       |
+| email  | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.23 sec)
+
+mysql> insert into stdet values('42','Sanket Patil',2,'Third Year','sanketpatil1309@gmail.com');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select*from dept;
++------+--------------------------+
+| id   | name                     |
++------+--------------------------+
+|    1 | Computer Engineering     |
+|    2 | Elec & Telecommunication |
+|    3 | Information Technology   |
++------+--------------------------+
+3 rows in set (0.10 sec)
+
+mysql> select*from stdet;
++------+--------------+--------+------------+---------------------------+
+| id   | name         | deptid | year       | email                     |
++------+--------------+--------+------------+---------------------------+
+| 42   | Sanket Patil |      2 | Third Year | sanketpatil1309@gmail.com |
++------+--------------+--------+------------+---------------------------+
+1 row in set (0.00 sec)
+
+mysql> create table ach();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table ach(id varchar(20));
+Query OK, 0 rows affected (1.94 sec)
+
+mysql> create table int(id varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int(id varchar(20))' at line 1
+mysql> create table intr(id varchar(20));
+Query OK, 0 rows affected (0.43 sec)
+
+mysql> desc password;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | varchar(20) | YES  |     | NULL    |       |
+| PW    | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.16 sec)
+
+mysql> select*from password;
++------+--------+
+| ID   | PW     |
++------+--------+
+| 37   | venky  |
+| 38   | nyn    |
+| 39   | pallya |
+| 41   | kshtij |
+| 4    | aja    |
++------+--------+
+5 rows in set (0.00 sec)
+
+mysql> insert into stdet values('37','Vyankatesh Mundada',2,'Third Year','sanketpatil1309@gmail.com');
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select*from stdet;
++------+--------------------+--------+------------+---------------------------+
+| id   | name               | deptid | year       | email                     |
++------+--------------------+--------+------------+---------------------------+
+| 42   | Sanket Patil       |      2 | Third Year | sanketpatil1309@gmail.com |
+| 37   | Vyankatesh Mundada |      2 | Third Year | sanketpatil1309@gmail.com |
++------+--------------------+--------+------------+---------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select*from dept;
++------+--------------------------+
+| id   | name                     |
++------+--------------------------+
+|    1 | Computer Engineering     |
+|    2 | Elec & Telecommunication |
+|    3 | Information Technology   |
++------+--------------------------+
+3 rows in set (0.11 sec)
+
+mysql> desc dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+mysql> select *from achivement;
++--------+----------+--------------------------+------------+--------------------------------------------------------------------------------------------+---------------------+
+| userid | ach_name | ach_des                  | ach_date   | ach_cert                                                                                   | saved_on            |
++--------+----------+--------------------------+------------+--------------------------------------------------------------------------------------------+---------------------+
+| 39     | as       | as                       | 2020-11-17 | 0x576861747341707020496D61676520323032302D31312D313620617420342E31382E343920504D2E6A706567 | 2020-11-22 00:00:00 |
+| 39     | VAIBHAV  | as                       | 2020-11-17 | 0x32303230303831355F313435363434202832292D6D696E2E706E67                                   | 2020-11-22 00:00:00 |
+| 39     | VAIBHAV  | asdsdasdas               | 2020-11-19 | 0x32303230313131365F3137343434362E6A7067                                                   | 2020-11-22 00:00:00 |
+| 39     | VAIBHAV  | asdsdasdas               | 2020-11-19 | 0x32303230313131365F3137343434362E6A7067                                                   | 2020-11-22 00:00:00 |
+| 39     | vsp      | hackathon winner         | 2020-11-17 | 0x32303230313131365F3137343434362E6A7067                                                   | 2020-11-22 00:00:00 |
+| NULL   | VAIBHAV  | zxczxC                   | 2020-11-18 | 0x576861747341707020496D61676520323032302D31312D303720617420312E31362E303920504D2E6A706567 | 2020-11-22 00:00:00 |
++--------+----------+--------------------------+------------+--------------------------------------------------------------------------------------------+---------------------+
+14 rows in set (0.00 sec)
