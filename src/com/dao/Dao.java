@@ -93,9 +93,11 @@ public class Dao {
 			if (result.next()) {
 				user.setID(result.getString(1));
 				user.setName(result.getString(2));
-				user.setDepartment(getDepartment(result.getInt(3)));
-				user.setYear(result.getString(4));
-				user.setEmail(result.getString(5));
+				user.setYear(result.getString(3));
+				user.setDepartment(getDepartment(result.getInt(4)));
+				user.setBio(result.getString(6));
+				user.setEmail(result.getString(7));
+				user.setContact(String.valueOf(result.getInt(8)));
 				user.setAchievements(getAchievements(id));
 				user.setInternships(getInternships(id));
 			}
@@ -109,8 +111,8 @@ public class Dao {
 		String name = null;
 		try {
 			Connection con = ConnectionProvider.getConnection();
-			String q = "SELECT " + departmentTable + ".name FROM " + departmentTable + " where " + departmentTable
-					+ ".userid = ?";
+			String q = "SELECT " + departmentTable + ".deptname FROM " + departmentTable + " where " + departmentTable
+					+ ".deptid = ?";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -204,7 +206,7 @@ public class Dao {
 			pstmt.setBinaryStream(5, achievement.getCertificate());
 			pstmt.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
-			pstmt.setTimestamp(4, achievement.getTimestamp());
+//			pstmt.setTimestamp(4, achievement.getTimestamp());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -277,6 +279,12 @@ public class Dao {
 		}
 
 		return false;
+	}
+	
+	public void notifychange() {
+		User user = new User();
+		user.notify();
+		
 	}
 
 }
