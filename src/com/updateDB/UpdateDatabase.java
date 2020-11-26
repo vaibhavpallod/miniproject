@@ -71,7 +71,7 @@ public class UpdateDatabase {
 
 			if (!tExists) {
 				// if Table STUDENT_DETAILS does not exists creating dynamic table 
-				String createtable = "CREATE TABLE studentdetails(userid varchar(20) PRIMARY KEY,name varchar(50),rollno varchar(30),deptid int,class varchar(30),bio varchar(200),email varchar(50),mobile int,FOREIGN KEY(deptid) REFERENCES department(deptid));";
+				String createtable = "CREATE TABLE studentdetails(userid varchar(20) PRIMARY KEY    ,name varchar(50),rollno varchar(30),deptid int,class varchar(30),bio varchar(200),email varchar(50),mobile int,FOREIGN KEY(deptid) REFERENCES department(deptid));";
 				stmt.executeUpdate(createtable);
 				System.out.println("*******************studentdetails TABLE CREATED*********************");
 			}

@@ -165,7 +165,7 @@
 									Achievement</p>
 								<p style="font-size: 25px; display: none;" id="title_add_ach">Add
 									Achievement</p>
-								<form action="EditProfile">
+								<form action="EditAchievement">
 
 
 									<label for="edit_ach_name_input">Name</label> <input

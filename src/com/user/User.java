@@ -41,8 +41,35 @@ public class User {
 	public void setDepartment(String department) {
 		this.department=department;
 	}
-	public void setYear(String year) {
-		this.year=year;
+	public void setYear(String rollno) {
+		
+//		if(rollno.startsWith("1")) {
+//			year="First Year";
+//		}
+//		else if(rollno.startsWith("2")) {
+//			year="Second Year";			
+//		}
+//		else if() {
+//			year="Second Year";			
+//		}
+//		
+		switch (rollno.charAt(0)) {
+		case '1':
+			year="First Year";
+			break;
+		case '2':
+			year="Second Year";
+			break;
+		case '3':
+			year="Third Year";
+			break;
+		case '4':
+			year="Fourth Year";
+			break;
+
+		default:
+			year="NULL";
+		}
 	}
 	public void setEmail(String email) {
 		this.email=email;
