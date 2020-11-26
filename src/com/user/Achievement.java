@@ -4,7 +4,8 @@ import java.sql.Timestamp;
 
 import com.mysql.cj.jdbc.Blob;
 
-import java.sql.Date;
+import java.io.ByteArrayInputStream;
+import java.util.Date;
 
 public class Achievement {
 	private String id;
@@ -14,17 +15,25 @@ public class Achievement {
 	private String description;
 	private Date date;
 	private Timestamp timestamp;
+	private ByteArrayInputStream byteArrayInputStream;
 	
-	public Achievement() {
-		id=name=description=null;
-		date=null;
-		timestamp=null;
-		certificate = null;
+	public Achievement(String id, String ach_name, String ach_des, Date date,ByteArrayInputStream byteArrayInputStream, Timestamp timestamp) {
+		this.id=id;
+//		this.achievementId=ach_name;
+		this.name=ach_name;
+		this.description=ach_des;
+		this.date=date;
+		this.byteArrayInputStream=byteArrayInputStream;
+		this.timestamp=timestamp;
+
 	}
-	
+
+	public Achievement() {
+	}
+
 	//setter methods
-	public void setCertificate(Blob certificate) {
-		this.certificate = certificate;
+	public void setCertificate(ByteArrayInputStream byteArrayInputStream) {
+		this.byteArrayInputStream = byteArrayInputStream;
 	}
 	public void setAchievementID(int achievementId){
 		this.achievementId=achievementId;
@@ -46,8 +55,8 @@ public class Achievement {
 	}
 	
 	//getter methods
-	public Blob getCertificate() {
-		return certificate;
+	public ByteArrayInputStream getCertificate() {
+		return byteArrayInputStream;
 	}
 	public int getAchievementID(){
 		return achievementId;
@@ -69,3 +78,18 @@ public class Achievement {
 	}
 	
 }
+
+
+//public Achievement(String id,int achievementId,String name,String description,Date date,Blob certificate,Timestamp timestamp) {
+//this.id=id;
+//this.achievementId=achievementId;
+//this.name=name;
+//this.description=description;
+//this.date=date;
+//this.certificate=certificate;
+//this.timestamp=timestamp;
+////id=name=description=null;
+////date=null;
+////timestamp=null;
+////certificate = null;
+//}

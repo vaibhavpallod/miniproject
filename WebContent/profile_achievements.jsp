@@ -69,7 +69,16 @@ User user=(User)session.getAttribute("User");
                 <div class="profile_details">
                     <p id="name" style="font-size: 30px;"><%=user.getName() %></p>
                     <p id="department" style="font-size: 20px; color: grey;"><%=user.getDepartment() %></p>
-                    <p id="year" style="font-size: 20px; color: grey;"><%=user.getYear() %></p>
+                    <p id="year" style="font-size: 20px; color: grey;"><%
+                    switch(user.getYear()){
+                    case "1":out.print("Computer Science");
+                    break;
+                    case "2":out.print("Information Technology");
+                    break;
+                    case "3":out.print("Electronics & Telecommunication");
+                    break;
+                    }
+                     %></p>
                     <p id="bio" style="font-size: 17px; color: grey;"><%=user.getBio()==null?"&nbsp;":user.getBio()%></p>
                 </div>
             </div>
@@ -95,7 +104,7 @@ User user=(User)session.getAttribute("User");
 
                 <!--ONE ACHIEVEMENT RECORD-->
                 <%
-                	ArrayList<Achievement>achievements=user.getAchievements();
+                	ArrayList<Achievement> achievements=user.getAchievements();
                 	if(achievements.isEmpty()){
                 		%>
                 		<div class="data_not_available">
