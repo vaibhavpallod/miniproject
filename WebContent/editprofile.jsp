@@ -277,6 +277,7 @@
 						for (Internship internship : internships) {
 					%>
 					<button class="edit_one_internship_button">
+					id="<%=internship.getInternshipID()%>">
 						<div class="edit_one_internship">
 							<p class="edit_int_name" style="font-size: 20px;"><%=internship.getName()%></p>
 							From&nbsp;:
@@ -306,23 +307,30 @@
 									Internship</p>
 								<p style="font-size: 25px; display: none;" id="title_add_int">Add
 									Internship</p>
-								<label for="edit_int_name_input">Name</label> <input type="text"
+								<form action="EditInternship">
+								<label for="edit_int_name_input">Name</label> <input name="intern_name" type="text"
 									id="edit_int_name_input"> <label
 									for="edit_int_startdate_input">Start Date</label> <input
-									type="date" id="edit_int_startdate_input"> <label
+									name="intern_startdate"	type="date" id="edit_int_startdate_input"> <label
 									for="edit_int_enddate_input">End Date</label> <input
-									type="date" id="edit_int_enddate_input"> <label
+									name="intern_enddate" type="date" id="edit_int_enddate_input"> <label
 									for="edit_int_description_input">Description</label>
+									<input name="intern_desc" type="text" id="edit_int_description_input">
+									<label for="edit_int_status_input">Status</label>
+									<input name="intern_status" type="text" id="edit_int_status_input">
+									<label for="edit_int_nor_input">NOR</label>
+									<input name="intern_nor" type="text" id="edit_int_nor_input">
+									
 								<textarea id="edit_int_description_input"></textarea>
 								<label for="edit_int_image_input">Attach Image</label> <input
-									name="int_image" type="file" onchange="readURL(this)"
+									name="intern_image" type="file" onchange="readURL(this)"
 									accept="image/*" id="edit_int_image_input">
 								<div class="modal_buttons">
 									<input type="submit" id="save_internship" value="Save">
 									<button id="delete_int">Delete</button>
 									<!--DONE WITH DELETE-->
 								</div>
-
+								</form>
 							</div>
 						</div>
 					</div>

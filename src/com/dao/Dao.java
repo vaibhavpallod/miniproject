@@ -1,10 +1,13 @@
 package com.dao;
 
-import java.io.ByteArrayInputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import com.user.Achievement;
 import com.user.Internship;
@@ -214,21 +217,24 @@ public class Dao {
 		}
 	}
 
-	public void addInternship(Internship internship, String id) {
+	public void addInternship(Internship internship) {
 		try {
 			Connection con = ConnectionProvider.getConnection();
-			String q = "insert into " + internshipTable + " values(?,?,?,?,?,?)";
+			String q = "insert into " + internshipTable + "(userid,intrnname,intrndes,startdate,enddate,status,nor,intrncert,savedon) values(?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
-			pstmt.setString(1, id);
+			pstmt.setString(1, internship.getID());
 			pstmt.setString(2, internship.getName());
 			pstmt.setString(3, internship.getDescription());
-			pstmt.setDate(4, internship.getStartDate());
-			pstmt.setDate(5, internship.getEndDate());
-			pstmt.setTimestamp(6, internship.getTimestamp());
+			pstmt.setDate(4, new java.sql.Date(internship.getStartDate().getTime()));
+			pstmt.setDate(5, new java.sql.Date(internship.getEndDate().getTime()));
+			pstmt.setString(6,internship.getStatus());
+			pstmt.setString(7,internship.getNor());
+			pstmt.setBinaryStream(8,internship.getCertificate());
+			pstmt.setDate(9,java.sql.Date.valueOf(java.time.LocalDate.now()));
 
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
