@@ -1,3 +1,5 @@
+<%@page import="com.user.*"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%
@@ -57,31 +59,38 @@
                 <p style="font-size: 25px;">Profile Results</p>
 
                 <!--TODO ADD DYNAMIC HERE-->
+                <%
+					List studentlist=new ArrayList();
+					studentlist=(ArrayList)request.getAttribute("studentlist");	
+					System.out.println(studentlist);
+					if(studentlist!=null && studentlist.size()>0 ){				
+				%>
+				<%
+					for(int i=0;i<studentlist.size();i++){
+						List student=(List)studentlist.get(i);
+				%>
                 <button class="search_one_profile_button">
                     <div class="search_one_profile">
                         <img src="images/default_prof_pic.png" class="search_prof_pic">
                         <div class="search_prof_info">
-                            <p id="search_prof_name" style="font-size: 20px; margin: 0;">Sanket Patil</p>
-                            <p id="search_prof_bio" style="font-size: 17px; margin: 5px 0 0 0; color: grey;">Interested in Algorithms | ML Enthusiast | Love Reading</p>
-                        </div>
+                            <p id="search_prof_name" style="font-size: 20px; margin: 0;"><%=student.get(0) %></p>
+                            <p id="search_prof_bio" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=student.get(1) %></p>
+                         </div>
                     </div>
                 </button>
-                <button class="search_one_profile_button">
-                    <div class="search_one_profile">
-                        <img src="images/default_prof_pic.png" class="search_prof_pic">
-                        <div class="search_prof_info">
-                            <p id="search_prof_name" style="font-size: 20px; margin: 0;">Sanket Patil</p>
-                            <p id="search_prof_bio" style="font-size: 17px; margin: 5px 0 0 0; color: grey;">Interested in Algorithms | ML Enthusiast | Love Reading</p>
-                        </div>
-                    </div>
-                </button>
-            </div>
-
-            <!--NOT FOUND DIV>
+            
+			<%
+				}
+			%>
+			</div>
+			<%
+				}else{
+			 %>
+			
             <div class="search_not_found">
                 <p style="font-size: 30px;">No Results Found</p>
-            </div-->
-
+            </div>
+			<%}%>
             <!--PLEASE ADD COMMENTS AT EACH STEP-->
         </div>
 
