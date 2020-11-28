@@ -10,5 +10,6 @@ document.getElementById("search_bar").onkeypress = function(e) {
         else if(field.localeCompare("internship")==0){
             location.replace("SearchInternship");
         }
+        
     }
 }
