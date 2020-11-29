@@ -37,12 +37,14 @@ User user=(User)session.getAttribute("User");
 
                 <!--SEARCH BAR-->
                 <div class="search">
-                    <input id="search_bar" type="text" placeholder="Search"/>
-                    <select data-trigger="" name="search-field" id="search-field">
-                        <option selected value="profile">Profile</option>
-                        <option value="achievement">Achievement</option>
-                        <option value="internship">Internship</option>
-                    </select>
+                	<form action="SearchProfile">
+                    	<input id="search_bar" name="search_bar" type="text" placeholder="Search"/>
+                    	<select data-trigger="" name="search-field" id="search-field">
+                        	<option selected value="profile">Profile</option>
+                        	<option value="achievement">Achievement</option>
+                        	<option value="internship">Internship</option>
+                    	</select>
+                    </form>
                 </div>
 
                 <!--SETTINGS OPTION-->
@@ -121,6 +123,6 @@ User user=(User)session.getAttribute("User");
             <!--PLEASE ADD COMMENTS AT EACH STEP-->
         </div>
 
-        <script type="text/javascript" src="search.js"></script>
+        
     </body>
 </html>

@@ -1,3 +1,5 @@
+<%@page import="com.user.*"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%
@@ -28,12 +30,14 @@
 
                 <!--SEARCH BAR-->
                 <div class="search">
-                    <input id="search_bar" type="text" placeholder="Search"/>
-                    <select data-trigger="" name="search-field" id="search-field">
-                        <option selected value="profile">Profile</option>
-                        <option value="achievement">Achievement</option>
-                        <option value="internship">Internship</option>
-                    </select>
+                	<form action="SearchProfile">
+                    	<input id="search_bar" name="search_bar" type="text" placeholder="Search"/>
+                    	<select data-trigger="" name="search-field" id="search-field">
+                        	<option selected value="profile">Profile</option>
+                        	<option value="achievement">Achievement</option>
+                        	<option value="internship">Internship</option>
+                    	</select>
+                    </form>
                 </div>
 
                 <!--SETTINGS OPTION-->
@@ -55,39 +59,43 @@
 
             <div class="search_list">
 
-                <p style="font-size: 25px;">Internship Results</p>
+                
 
                 <!--TODO ADD DYNAMIC HERE-->
+                <%
+					List internshiplist=new ArrayList();
+                	internshiplist=(ArrayList)request.getAttribute("internshiplist");	
+					if(internshiplist!=null && internshiplist.size()>0 ){				
+				%>
+				<p style="font-size: 25px;">Internship Results</p>
+				<%
+					for(int i=0;i<internshiplist.size();i++){
+						List internship=(List)internshiplist.get(i);
+				%>
                 <button class="search_one_internship_button">
                     <div class="search_one_internship">
                         <img src="images/default_prof_pic.png" class="search_prof_pic">
                         <div class="search_int_info">
-                            <p id="search_int_name" style="font-size: 20px; margin: 0;">Sanket Patil</p>
-                            <p id="search_int_intname" style="font-size: 17px; margin: 5px 0 0 0; color: grey;">Infotech</p>
-                            <p id="search_int_intdescription" style="font-size: 15px; margin: 5px 0 0 0; color: grey;">Android Development Projects</p>
+                            <p id="search_int_name" style="font-size: 20px; margin: 0;"><%=internship.get(0) %></p>
+                            <p id="search_int_intname" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=internship.get(1) %></p>
+                            <p id="search_int_intdescription" style="font-size: 15px; margin: 5px 0 0 0; color: grey;"><%=internship.get(2) %></p>
                         </div>
                     </div>
                 </button>
-                <button class="search_one_internship_button">
-                    <div class="search_one_internship">
-                        <img src="images/default_prof_pic.png" class="search_prof_pic">
-                        <div class="search_int_info">
-                            <p id="search_int_name" style="font-size: 20px; margin: 0;">Sanket Patil</p>
-                            <p id="search_int_intname" style="font-size: 17px; margin: 5px 0 0 0; color: grey;">Infotech</p>
-                            <p id="search_int_intdescription" style="font-size: 15px; margin: 5px 0 0 0; color: grey;">Android Development Projects</p>
-                        </div>
-                    </div>
-                </button>
+                <%
+					}
+				%>
             </div>
-
-            <!--NOT FOUND DIV>
+			<%
+				}else{
+			%>
             <div class="search_not_found">
                 <p style="font-size: 30px;">No Results Found</p>
-            </div-->
-
+            </div>
+			<%}%>
             <!--PLEASE ADD COMMENTS AT EACH STEP-->
         </div>
 
-        <script type="text/javascript" src="search.js"></script>
+        
     </body>
 </html>
