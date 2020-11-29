@@ -67,7 +67,7 @@ public class Dao {
 		String name = null;
 		try {
 			Connection con = ConnectionProvider.getConnection();
-			String q = "SELECT name * FROM " + studentDetailsTable + " where " + studentDetailsTable + ".userid = ?";
+			String q = "SELECT name FROM " + studentDetailsTable + " where " + studentDetailsTable + ".userid = ?";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -76,7 +76,7 @@ public class Dao {
 			ResultSet result = pstmt.executeQuery();
 
 			if (result.next()) {
-				name = result.getString(1);
+				name = result.getString("name");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -180,7 +180,6 @@ body{
 #search_bar::placeholder{
     color: rgb(218, 243, 252);
 }
-
 .search select{
     padding: 3px;
     margin-left: 5px;

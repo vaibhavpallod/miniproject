@@ -30,12 +30,14 @@
 
                 <!--SEARCH BAR-->
                 <div class="search">
-                    <input id="search_bar" type="text" placeholder="Search"/>
-                    <select data-trigger="" name="search-field" id="search-field">
-                        <option selected value="profile">Profile</option>
-                        <option value="achievement">Achievement</option>
-                        <option value="internship">Internship</option>
-                    </select>
+                	<form action="SearchProfile">
+                    	<input id="search_bar" name="search_bar" type="text" placeholder="Search"/>
+                    	<select data-trigger="" name="search-field" id="search-field">
+                        	<option selected value="profile">Profile</option>
+                        	<option value="achievement">Achievement</option>
+                        	<option value="internship">Internship</option>
+                    	</select>
+                    </form>
                 </div>
 
                 <!--SETTINGS OPTION-->
@@ -56,15 +58,14 @@
             </div>
 
             <div class="search_list">
-                <p style="font-size: 25px;">Profile Results</p>
 
                 <!--TODO ADD DYNAMIC HERE-->
                 <%
 					List studentlist=new ArrayList();
 					studentlist=(ArrayList)request.getAttribute("studentlist");	
-					System.out.println(studentlist);
 					if(studentlist!=null && studentlist.size()>0 ){				
 				%>
+				<p style="font-size: 25px;">Profile Results</p>
 				<%
 					for(int i=0;i<studentlist.size();i++){
 						List student=(List)studentlist.get(i);
@@ -79,13 +80,13 @@
                     </div>
                 </button>
             
-			<%
-				}
-			%>
+				<%
+					}
+				%>
 			</div>
 			<%
 				}else{
-			 %>
+			%>
 			
             <div class="search_not_found">
                 <p style="font-size: 30px;">No Results Found</p>
@@ -94,6 +95,6 @@
             <!--PLEASE ADD COMMENTS AT EACH STEP-->
         </div>
 
-        <script type="text/javascript" src="search.js"></script>
+        
     </body>
 </html>
