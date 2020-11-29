@@ -115,3 +115,20 @@ plus_int.onclick = function(){
 
   document.getElementById("delete_int").style.display = "none";
 }
+
+/*
+var viewcertificate =  document.getElementById("viewCertificate");
+
+viewcertificate.onclick = function() {
+	document.getElementById("showImage").style.display = "block";
+	document.getElementById("showinImagetag").src = "data:image/png;base64," + encodedString;
+	window.alert("CLICKED");
+}
+*/
+
+function setImage(encodedString) {
+	document.getElementById("showImage").style.display = "block";
+	document.getElementById("showinImagetag").src = "data:image/png;base64," + encodedString;
+//	window.alert(encodedString);
+	console.log(encodedString);
+}

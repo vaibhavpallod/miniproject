@@ -5,6 +5,9 @@ import java.sql.Timestamp;
 import com.mysql.cj.jdbc.Blob;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Date;
 
 public class Internship {
@@ -18,9 +21,12 @@ public class Internship {
 	private String status;
 	private String nor;
 	private Timestamp timestamp;
-	private ByteArrayInputStream byteArrayInputStream;
+	private InputStream inputStream;
+	private String encodeString;
+
 	
-	public Internship(String id,String intern_name,String intern_des,String status,String nor,Date start_date,Date end_date,ByteArrayInputStream byteArrayInputStream,Timestamp timestamp)
+
+	public Internship(String id,String intern_name,String intern_des,String status,String nor,Date start_date,Date end_date,InputStream inputStream, Timestamp timestamp)
 	{
 		this.id=id;
 		this.name=intern_name;
@@ -29,7 +35,7 @@ public class Internship {
 		this.nor=nor;
 		this.startDate=start_date;
 		this.endDate=end_date;
-		this.byteArrayInputStream=byteArrayInputStream;
+		this.inputStream=inputStream;
 		this.timestamp=timestamp;
 	}
 	
@@ -40,8 +46,8 @@ public class Internship {
 	
 
 	//setter methods
-	public void setCertificate(ByteArrayInputStream byteArrayInputStream) {
-		this.byteArrayInputStream =byteArrayInputStream;
+	public void setCertificate(InputStream inputStream) {
+		this.inputStream =inputStream;
 	}
 	public void setInternshipID(int internshipId){
 		this.internshipId=internshipId;
@@ -70,10 +76,13 @@ public class Internship {
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp=timestamp;
 	}
+	public void setEncodedString(String encodeString) {
+		this.encodeString = encodeString;
+	}
 	
 	//getter methods
-	public ByteArrayInputStream getCertificate() {
-		return byteArrayInputStream;
+	public InputStream getCertificate() {
+		return inputStream;
 	}
 	public int getInternshipID(){
 		return internshipId;
@@ -103,4 +112,8 @@ public class Internship {
 		return timestamp;
 	}
 	
+	public String getEndcodeString() {
+		return encodeString;
+	}
+
 }

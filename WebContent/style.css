@@ -446,6 +446,15 @@ option{
     width: 40%; /* Could be more or less, depending on screen size */
     overflow: auto;
   }
+.modal-content2 {
+    background-color: #fefefe;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+    overflow: auto;
+  	
+  }
 
   /* The Close Button */
   .close_achievement {

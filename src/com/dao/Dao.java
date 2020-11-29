@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -8,7 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 
+import com.mysql.cj.jdbc.Blob;
 import com.user.Achievement;
 import com.user.Internship;
 import com.user.User;
@@ -132,6 +135,32 @@ public class Dao {
 		return name;
 	}
 
+	private String getEncodedString(ResultSet resultSet, int i) {
+		String fileName = "image.png";
+		String encodeString = "null";
+		try (FileOutputStream fos = new FileOutputStream(fileName)) {
+//			resultSet.getblo
+			Blob blob;
+			if (i == 0)
+				blob = (Blob) resultSet.getBlob("achcert");
+			else {
+				blob = (Blob) resultSet.getBlob("intrncert");
+			}
+
+			int len = (int) blob.length();
+
+			byte[] buf = blob.getBytes(1, len);
+			encodeString = Base64.getEncoder().encodeToString(buf);
+			fos.write(buf, 0, len);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return encodeString;
+
+	}
+
 	public ArrayList<Achievement> getAchievements(String id) {
 		ArrayList<Achievement> achievements = new ArrayList<Achievement>();
 
@@ -146,11 +175,11 @@ public class Dao {
 			ResultSet result = pstmt.executeQuery();
 			while (result.next()) {
 				Achievement achievement = new Achievement();
-				System.out.println(achievement.toString());
 				achievement.setID(result.getString(1));
 				achievement.setName(result.getString(3));
 				achievement.setDescription(result.getString(4));
 				achievement.setDate(result.getDate(5));
+				achievement.setEncodedString(getEncodedString(result, 0));
 				achievement.setTimestamp(result.getTimestamp(7));
 				achievements.add(achievement);
 			}
@@ -168,7 +197,6 @@ public class Dao {
 			String q = "SELECT * FROM " + internshipTable + " where " + internshipTable + ".userid = ?";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
-
 			pstmt.setString(1, id);
 
 			ResultSet result = pstmt.executeQuery();
@@ -176,11 +204,14 @@ public class Dao {
 			while (result.next()) {
 				Internship internship = new Internship();
 				internship.setID(result.getString(1));
-				internship.setName(result.getString(2));
-				internship.setDescription(result.getString(3));
-				internship.setStartDate(result.getDate(4));
-				internship.setEndDate(result.getDate(5));
-				internship.setTimestamp(result.getTimestamp(6));
+				internship.setName(result.getString(3));
+				internship.setDescription(result.getString(4));
+				internship.setStartDate(result.getDate(5));
+				internship.setEndDate(result.getDate(6));
+				internship.setStatus(result.getString("status"));
+				internship.setNor(result.getString("nor"));
+				internship.setEncodedString(getEncodedString(result, 1));
+				internship.setTimestamp(result.getTimestamp(10));
 				internships.add(internship);
 			}
 		} catch (Exception e) {
@@ -206,7 +237,7 @@ public class Dao {
 			pstmt.setString(2, achievement.getName());
 			pstmt.setString(3, achievement.getDescription());
 			pstmt.setDate(4, new java.sql.Date((achievement.getTimestamp().getTime())));
-			pstmt.setBinaryStream(5, achievement.getCertificate());
+			pstmt.setBlob(5, achievement.getCertificate());
 			pstmt.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
 //			pstmt.setTimestamp(4, achievement.getTimestamp());
@@ -229,10 +260,10 @@ public class Dao {
 			pstmt.setString(3, internship.getDescription());
 			pstmt.setDate(4, new java.sql.Date(internship.getStartDate().getTime()));
 			pstmt.setDate(5, new java.sql.Date(internship.getEndDate().getTime()));
-			pstmt.setString(6,internship.getStatus());
-			pstmt.setString(7,internship.getNor());
-			pstmt.setBinaryStream(8,internship.getCertificate());
-			pstmt.setDate(9,java.sql.Date.valueOf(java.time.LocalDate.now()));
+			pstmt.setString(6, internship.getStatus());
+			pstmt.setString(7, internship.getNor());
+			pstmt.setBlob(8, internship.getCertificate());
+			pstmt.setDate(9, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -286,11 +317,11 @@ public class Dao {
 
 		return false;
 	}
-	
+
 	public void notifychange() {
 		User user = new User();
 		user.notify();
-		
+
 	}
 
 }

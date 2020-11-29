@@ -1,3 +1,5 @@
+<%@page import="java.awt.Window"%>
+<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="com.user.*"%>
@@ -32,6 +34,7 @@
 		/* 		alert("Form has been submitted");
 		 */
 	}
+	
 </script>
 
 </head>
@@ -165,7 +168,8 @@
 									Achievement</p>
 								<p style="font-size: 25px; display: none;" id="title_add_ach">Add
 									Achievement</p>
-								<form action="EditAchievement">
+								
+        							<form name="fileform" method="post" action="EditAchievement" enctype="multipart/form-data">
 
 
 									<label for="edit_ach_name_input">Name</label> <input
@@ -177,9 +181,12 @@
 									<label for="edit_ach_date_input">Date of Accomplishment</label>
 									<input name="ach_date" type="date" id="edit_ach_date_input">
 
-									<label for="edit_ach_image_input">Attach Image</label> <input
+									<label for="edit_ach_image_input">Attach Image</label> 
+									
+									<input
 										name="ach_image" type="file" onchange="readURL(this)"
 										accept="image/*" id="edit_ach_image_input">
+									
 									<div class="modal_buttons">
 										<input type="submit" id="save_achievement" value="Save">
 										<button id="delete_ach">Delete</button>
@@ -189,77 +196,6 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- ----------------------------------------VAIBHAV'S CODE - IT DOESNT WORK-------------------------------------------------- -->
-				<!-- --------------------------------------------BELOW-------------------------------------------------- -->
-
-				<!-- div id="modal_for_achievement" class="modal_edit_one_achievement">
-						
-						<div class="modal-content">
-							<span class="close_achievement">&times;</span>
-							<div id="form_for_achievements">
-								<p style="font-size: 25px;" id="title_edit_ach">Edit
-									Achievement</p>
-								<p style="font-size: 25px; display: none;" id="title_add_ach">Add
-									Achievement</p>
-								<form action="EditProfile" class="modal_buttons" id="save_achievement">
-
-									<div class="row">
-										<div class="col-25">
-											<label for="edit_ach_name_input">Name</label>
-										</div>
-										<div class="col-75">
-											<input name="ach_name" type="text" id="edit_ach_name_input">
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-25">
-											<label for="edit_ach_Desc_input">Description</label>
-										</div>
-										<div class="col-75">
-											<textarea name="ach_desc" id="edit_ach_description_input"></textarea>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-25">
-											<label for="edit_ach_Date_input">Date of
-												Accomplishment</label>
-										</div>
-										<div class="col-75">
-											<input name="ach_date" type="date" id="edit_ach_name_input">
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-25">
-											<label for="edit_ach_image_input">Attach Image</label>
-										</div>
-										<div class="col-75">
-											<input name="ach_image" type="file" onchange="readURL(this)"
-												accept="image/*" id="edit_ach_name_input">
-										</div>
-									</div>
-
-
-
-									<!-- 								<form class="modal_buttons" id="save_achievement"> -->
-				<!-- //name="save_ach" -->
-				<!-- div class="row">
-										<button type="submit">Save</button>
-									</div>
-							
-									<!--  onclick="CallServlet('GET')" -->
-
-				<!-- /form>
-							</div>
-						</div>
-					</div-->
-
-				<!-- ----------------------------------------VAIBHAV'S CODE-------------------------------------------------- -->
-				<!-- --------------------------------------------ABOVE-------------------------------------------------- -->
-
 
 				<!--EDIT INTERNSHIPS-->
 				<div class="edit_internships">
@@ -274,27 +210,43 @@
 					<!--TODO DYNAMIC HERE-->
 					<%
 						ArrayList<Internship> internships = user.getInternships();
+						System.out.println(internships);
 						for (Internship internship : internships) {
 					%>
 					<button class="edit_one_internship_button">
-					id="<%=internship.getInternshipID()%>">
+					<%-- id=<%=internship.getInternshipID()%>> --%>                                   <!-- sanket ye line dekh kai ki hai mene comment ki hai  -->
 						<div class="edit_one_internship">
 							<p class="edit_int_name" style="font-size: 20px;"><%=internship.getName()%></p>
-							From&nbsp;:
+							
+							<p class="edit_int_description" style="font-size: 15px;"><%=internship.getDescription()%></p>
 							<p class="edit_int_startdate"
-								style="font-size: 15px; display: inline-block;"><%=internship.getStartDate()%></p>
-							<br> To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+								style="font-size: 15px; display: inline-block;">
+							From&nbsp;:	<%=internship.getStartDate()%></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;:
 							<p class="edit_int_enddate"
 								style="font-size: 15px; display: inline-block;"><%=internship.getEndDate()%></p>
-							<p class="edit_int_description" style="font-size: 15px;"><%=internship.getDescription()%></p>
-							<p class="edit_int_cert" style="font-size: 15px;">
-								<a href="" style="text-decoration: none;">View Certificate</a>
-							</p>
+				         	<%
+		                		String ecs = "&nbsp;";
+								ecs=internship.getEndcodeString();
+
+				        	%>
+									
+							
+							
+						
 						</div>
 					</button>
+					<%--  --%>
+					<p id="viewCertificate" class="edit_int_cert" onclick="setImage('<%=ecs %>')" style="font-size: 15px;">View Certificate</p>
+						
 					<%
 						}
 					%>
+					
+						<div id="showImage" class="modal-content2">
+							<span class="close_image">&times;</span>
+							<img id="showinImagetag" alt="image" >
+						
+						</div>
 					<!--DYNAMIC ENDS HERE-->
 
 					<!--POP UP DIV FOR INTERNSHIP-->
@@ -303,11 +255,9 @@
 						<div class="modal-content">
 							<span class="close_internship">&times;</span>
 							<div id="form_for_internships">
-								<p style="font-size: 25px;" id="title_edit_int">Edit
-									Internship</p>
-								<p style="font-size: 25px; display: none;" id="title_add_int">Add
-									Internship</p>
-								<form action="EditInternship">
+								<p style="font-size: 25px;" id="title_edit_int">Edit Internship</p>
+								<p style="font-size: 25px; display: none;" id="title_add_int">Add Internship</p>
+				<form name="fileform" method="post" action="EditInternship" enctype="multipart/form-data">
 								<label for="edit_int_name_input">Name</label> <input name="intern_name" type="text"
 									id="edit_int_name_input"> <label
 									for="edit_int_startdate_input">Start Date</label> <input
@@ -315,14 +265,14 @@
 									for="edit_int_enddate_input">End Date</label> <input
 									name="intern_enddate" type="date" id="edit_int_enddate_input"> <label
 									for="edit_int_description_input">Description</label>
-									<input name="intern_desc" type="text" id="edit_int_description_input">
+									<textarea name="intern_desc" type="text" id="edit_int_description_input"></textarea> 
 									<label for="edit_int_status_input">Status</label>
 									<input name="intern_status" type="text" id="edit_int_status_input">
 									<label for="edit_int_nor_input">NOR</label>
 									<input name="intern_nor" type="text" id="edit_int_nor_input">
 									
-								<textarea id="edit_int_description_input"></textarea>
-								<label for="edit_int_image_input">Attach Image</label> <input
+								<label for="edit_int_image_input">Attach Image</label> 
+								<input
 									name="intern_image" type="file" onchange="readURL(this)"
 									accept="image/*" id="edit_int_image_input">
 								<div class="modal_buttons">
