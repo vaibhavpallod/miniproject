@@ -1,3 +1,4 @@
+<%@page import="com.dao.Dao"%>
 <%@page import="java.awt.Window"%>
 <%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -31,8 +32,6 @@
 		document.getElementById("save_achievement").action = "EditProfile";
 		document.getElementById("save_achievement").method = methodType;
 		document.getElementById("save_achievement").submit();
-		/* 		alert("Form has been submitted");
-		 */
 	}
 	
 </script>
@@ -83,28 +82,46 @@
 
 		<!--EDIT PROFILE-->
 		<div class="edit_profile">
+		<%	Dao dao = new Dao();
+            String ecspic = "&nbsp;";
+            ecspic=dao.getProfilePic(user.getID());
 
+       	%>
 			<!--PROFILE PICTURE WITH UPLOAD OPTION-->
 			<div class="prof_pic_input">
+			<form name="profileform" action="EditPic" method="post" enctype="multipart/form-data">
 				<p>
-					<input type="file" accept="image/*" name="image"
+					<input type="file" accept="image/*" name="profpic"
 						id="input_prof_pic_file" onchange="loadFile(event)"
 						style="display: none; cursor: pointer;">
 				</p>
 				<p>
+				<% if(ecspic.equals("null"))  {System.out.print("nullllllllllllllllll"); %>
 					<img id="input_prof_pic" width="150px" height="150px"
 						style="border: 1px solid black; border-radius: 75px;"
 						src="images/default_prof_pic.png" />
+				<% }else{System.out.print("yessssssssssssssssssssss"); %>
+					<img id="input_prof_pic" width="150px" height="150px"
+						style="border: 1px solid black; border-radius: 75px;"
+						src="data:image/png;base64,<%=ecspic %>" />
+				<%} %>
 				</p>
-				<p>
-					<label for="input_prof_pic_file" style="cursor: pointer;">Upload
-						Picture</label>
+				<p >
+					<label for="input_prof_pic_file" style="cursor: pointer;">Upload Picture</label>
 				</p>
+				<!-- <input type="submit" id="save_achievement" value="Save">
+				 -->
+				 <input type="submit" id="callservletforpic" value="Save" > 					
+			
+			</form>
 				<script>
 					var loadFile = function(event) {
 						var image = document.getElementById('input_prof_pic');
 						image.src = URL.createObjectURL(event.target.files[0]);
-					};
+					/* 	document.getElementById("callservletforpic").action = "EditPic";
+						document.getElementById("callservletforpic").method = "POST"; */		
+						document.getElementById("callservletforpic").click();
+						};
 				</script>
 			</div>
 

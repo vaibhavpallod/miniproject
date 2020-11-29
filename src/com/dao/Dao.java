@@ -14,6 +14,7 @@ import java.util.Base64;
 import com.mysql.cj.jdbc.Blob;
 import com.user.Achievement;
 import com.user.Internship;
+import com.user.ProfilePic;
 import com.user.User;
 
 public class Dao {
@@ -138,13 +139,22 @@ public class Dao {
 	private String getEncodedString(ResultSet resultSet, int i) {
 		String fileName = "image.png";
 		String encodeString = "null";
+		System.out.println("Enter");
 		try (FileOutputStream fos = new FileOutputStream(fileName)) {
-//			resultSet.getblo
-			Blob blob;
-			if (i == 0)
+			Blob blob = null;
+			System.out.println("get   1  " + blob);
+
+			if (i == 0) {
 				blob = (Blob) resultSet.getBlob("achcert");
-			else {
+				System.out.println("get xx    "+blob);
+
+			} else if (i == 1) {
 				blob = (Blob) resultSet.getBlob("intrncert");
+				System.out.println("get yy    "+blob);
+
+			} else if(i == 3) {
+				blob = (Blob) resultSet.getBlob("pic");
+				System.out.println("get zz    " + blob);
 			}
 
 			int len = (int) blob.length();
@@ -251,7 +261,8 @@ public class Dao {
 	public void addInternship(Internship internship) {
 		try {
 			Connection con = ConnectionProvider.getConnection();
-			String q = "insert into " + internshipTable + "(userid,intrnname,intrndes,startdate,enddate,status,nor,intrncert,savedon) values(?,?,?,?,?,?,?,?,?)";
+			String q = "insert into " + internshipTable
+					+ "(userid,intrnname,intrndes,startdate,enddate,status,nor,intrncert,savedon) values(?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -318,10 +329,47 @@ public class Dao {
 		return false;
 	}
 
-	public void notifychange() {
-		User user = new User();
-		user.notify();
+	public boolean checkProfilepic(String id) {
+		Connection con = ConnectionProvider.getConnection();
+		String check = "SELECT userid FROM profilepic WHERE profilepic.userid = 39 ";
+		boolean isavailable = false;
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(check);
 
+			while (rs.next()) {
+				if (rs.getString("userid").equals(id))
+					isavailable = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return isavailable;
+	}
+
+	public String getProfilePic(String id) {
+		Connection con = ConnectionProvider.getConnection();
+		ProfilePic pic = new ProfilePic();
+		String ens = "null";
+		if (checkProfilepic(id)) {
+			String query = "SELECT * from profilepic where profilepic.userid = " + id;
+			try {
+				Statement stmt = con.createStatement();
+				ResultSet resultSet = stmt.executeQuery(query);
+				resultSet.next();	
+				pic.setUserID(id);
+				ens = getEncodedString(resultSet, 3);
+				pic.setEncodedString(ens);
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return ens;
 	}
 
 }
