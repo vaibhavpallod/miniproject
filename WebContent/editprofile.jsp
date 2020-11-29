@@ -51,14 +51,16 @@
 		<div class="top_menu">
 
 			<!--SEARCH BAR-->
-			<div class="search">
-				<input id="search_bar" type="text" placeholder="Search" /> <select
-					data-trigger="" name="search-field" id="search-field">
-					<option selected value="profile">Profile</option>
-					<option value="achievement">Achievement</option>
-					<option value="internship">Internship</option>
-				</select>
-			</div>
+            <div class="search">
+                <form action="SearchProfile">
+                    <input id="search_bar" name="search_bar" type="text" placeholder="Search"/>
+                    <select data-trigger="" name="search-field" id="search-field">
+                        <option selected value="profile">Profile</option>
+                        <option value="achievement">Achievement</option>
+                        <option value="internship">Internship</option>
+                    </select>
+                </form>
+            </div>
 
 			<!--SETTINGS OPTION-->
 			<div class="dropdown">
@@ -345,7 +347,7 @@
 	</div>
 
 	<script type="text/javascript" src="modal_edit.js"></script>
-	<script type="text/javascript" src="search.js"></script>
+	
 </body>
 </html>
 
