@@ -5,6 +5,9 @@ import java.sql.Timestamp;
 import com.mysql.cj.jdbc.Blob;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Date;
 
 public class Achievement {
@@ -15,25 +18,26 @@ public class Achievement {
 	private String description;
 	private Date date;
 	private Timestamp timestamp;
-	private ByteArrayInputStream byteArrayInputStream;
-	
-	public Achievement(String id, String ach_name, String ach_des, Date date,ByteArrayInputStream byteArrayInputStream, Timestamp timestamp) {
+	private InputStream inputStream;
+	private File file;
+	private String encodedString;
+
+	public Achievement(String id, String ach_name, String ach_des, Date date,InputStream inputStream, Timestamp timestamp) {
 		this.id=id;
 //		this.achievementId=ach_name;
 		this.name=ach_name;
 		this.description=ach_des;
 		this.date=date;
-		this.byteArrayInputStream=byteArrayInputStream;
+		this.inputStream=inputStream;
 		this.timestamp=timestamp;
-
 	}
 
 	public Achievement() {
 	}
 
 	//setter methods
-	public void setCertificate(ByteArrayInputStream byteArrayInputStream) {
-		this.byteArrayInputStream = byteArrayInputStream;
+	public void setCertificate(InputStream inputStream) {
+		this.inputStream = inputStream;
 	}
 	public void setAchievementID(int achievementId){
 		this.achievementId=achievementId;
@@ -54,9 +58,16 @@ public class Achievement {
 		this.timestamp=timestamp;
 	}
 	
+	public void setFile(File file) {
+		this.file=file;
+	}
+	
+	public void setEncodedString(String encString) {
+		this.encodedString=encString;
+	}
 	//getter methods
-	public ByteArrayInputStream getCertificate() {
-		return byteArrayInputStream;
+	public InputStream getCertificate() {
+		return inputStream;
 	}
 	public int getAchievementID(){
 		return achievementId;
@@ -77,6 +88,13 @@ public class Achievement {
 		return timestamp;
 	}
 	
+	public File getFile() {
+		return file;
+	}
+	
+	public String getEncodedString() {
+		return encodedString;
+	}
 }
 
 
