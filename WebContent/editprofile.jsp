@@ -127,21 +127,30 @@
 
 			<!--FIELDS INPUT-->
 			<div class="fields_input">
+			
+				<form action="SaveChanges">
+				
 				<label for="edit_name">Name</label> <input type="text"
-					id="edit_name"
+					id="edit_name" name="edit_name"
 					value="<%=(user.getName() == null ? "" : user.getName())%>">
 				<label for="edit_bio"
 					style="display: inline-block; margin-top: 20px;">Bio</label>
-				<textarea id="edit_bio"><%=(user.getBio() == null ? "" : user.getBio())%></textarea>
+				<textarea id="edit_bio" name="edit_bio"><%=(user.getBio() == null ? "" : user.getBio())%></textarea>
 
 				<label for="edit_email"
 					style="display: inline-block; margin-top: 20px;">Email</label> <input
-					type="email" id="edit_email"
+					type="email" id="edit_email" name="edit_email"
 					value="<%=(user.getEmail() == null ? "" : user.getEmail())%>"
 					style="width: 63%"> <label for="edit_contact"
 					style="display: inline-block; margin-top: 20px;">Contact</label> <input
-					type="tel" id="edit_contact"
+					type="tel" id="edit_contact" name="edit_contact"
 					value="<%=(user.getContact() == null ? "" : user.getContact())%>">
+					
+				<!--SAVE BUTTON-->
+				<input type="submit" id="save_changes" value="Save Changes">	
+				
+				</form>
+					
 
 				<!--EDIT ACHIEVEMENTS-->
 				<div class="edit_achievements">
@@ -188,9 +197,15 @@
 								<p style="font-size: 25px; display: none;" id="title_add_ach">Add
 									Achievement</p>
 								
-        							<form name="fileform" method="post" action="EditAchievement" enctype="multipart/form-data">
+        							<!-- <form id="ach-form" name="fileform" action="EditAchievement" method="post" enctype="multipart/form-data">
+        							
+        							 -->
 
 
+									<form id="ach-form" name="fileform" method="post" action="EditAchievement" enctype="multipart/form-data">
+									
+									<input type="text" name="ach-id" id="ach-id" value="0" style="display:none;">
+									
 									<label for="edit_ach_name_input">Name</label> <input
 										name="ach_name" type="text" id="edit_ach_name_input">
 
@@ -208,7 +223,7 @@
 									
 									<div class="modal_buttons">
 										<input type="submit" id="save_achievement" value="Save">
-										<button id="delete_ach">Delete</button>
+										<button id="delete_ach" formaction="DeleteAchievement" formmethod="get">Delete</button>
 									</div>
 								</form>
 							</div>
@@ -232,15 +247,15 @@
 						System.out.println(internships);
 						for (Internship internship : internships) {
 					%>
-					<button class="edit_one_internship_button">
-					<%-- id=<%=internship.getInternshipID()%>> --%>                                   <!-- sanket ye line dekh kai ki hai mene comment ki hai  -->
+					<button class="edit_one_internship_button"
+					id=<%=internship.getInternshipID()%>>                                   <!--SOLVED == sanket ye line dekh kai ki hai mene comment ki hai  -->
 						<div class="edit_one_internship">
 							<p class="edit_int_name" style="font-size: 20px;"><%=internship.getName()%></p>
 							
 							<p class="edit_int_description" style="font-size: 15px;"><%=internship.getDescription()%></p>
+							From&nbsp;:
 							<p class="edit_int_startdate"
-								style="font-size: 15px; display: inline-block;">
-							From&nbsp;:	<%=internship.getStartDate()%></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;:
+								style="font-size: 15px; display: inline-block;"><%=internship.getStartDate()%></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;:
 							<p class="edit_int_enddate"
 								style="font-size: 15px; display: inline-block;"><%=internship.getEndDate()%></p>
 				         	<%
@@ -248,24 +263,51 @@
 								ecs=internship.getEndcodeString();
 
 				        	%>
-									
-							
-							
-						
+							 <p id="viewCertificate" class="edit_int_cert" onclick="setImage('<%=ecs %>')" style="font-size: 15px;">View Certificate</p>
+							 
 						</div>
 					</button>
-					<%--  --%>
-					<p id="viewCertificate" class="edit_int_cert" onclick="setImage('<%=ecs %>')" style="font-size: 15px;">View Certificate</p>
-						
 					<%
 						}
 					%>
 					
 						<div id="showImage" class="modal-content2">
 							<span class="close_image">&times;</span>
-							<img id="showinImagetag" alt="image" >
-						
+							<img id="showinImagetag" alt="image">
 						</div>
+						
+					<script>
+					/*
+					var viewcertificate =  document.getElementById("viewCertificate");
+
+					viewcertificate.onclick = function() {
+						document.getElementById("showImage").style.display = "block";
+						document.getElementById("showinImagetag").src = "data:image/png;base64," + encodedString;
+						window.alert("CLICKED");
+					}
+					*/
+					/*
+					document.getElementById("closeCert").onclick = function(){
+						document.getElementById("showImage").style.display = "none";
+					}
+
+					function setImage(encodedString) {
+						document.getElementById("showImage").style.display = "block";
+						document.getElementById("showinImagetag").src = "data:image/png;base64," + encodedString;
+//						window.alert(encodedString);
+						console.log(encodedString);
+					}
+					*/
+
+					function setImage(encodedString) {
+						document.getElementById("showImage").style.display = "block";
+						document.getElementById("showinImagetag").src = "data:image/png;base64," + encodedString;
+//						window.alert(encodedString);
+						console.log(encodedString);
+					}
+					</script>
+						
+						
 					<!--DYNAMIC ENDS HERE-->
 
 					<!--POP UP DIV FOR INTERNSHIP-->
@@ -276,7 +318,10 @@
 							<div id="form_for_internships">
 								<p style="font-size: 25px;" id="title_edit_int">Edit Internship</p>
 								<p style="font-size: 25px; display: none;" id="title_add_int">Add Internship</p>
-				<form name="fileform" method="post" action="EditInternship" enctype="multipart/form-data">
+				<form id="int-form" name="fileform" action="EditInternship" method="post" enctype="multipart/form-data">
+				
+						<input type="text" name="int-id" id="int-id" value="0" style="display:none;">
+				
 								<label for="edit_int_name_input">Name</label> <input name="intern_name" type="text"
 									id="edit_int_name_input"> <label
 									for="edit_int_startdate_input">Start Date</label> <input
@@ -296,7 +341,7 @@
 									accept="image/*" id="edit_int_image_input">
 								<div class="modal_buttons">
 									<input type="submit" id="save_internship" value="Save">
-									<button id="delete_int">Delete</button>
+									<button id="delete_int" formaction="DeleteInternship" formmethod="get">Delete</button>
 									<!--DONE WITH DELETE-->
 								</div>
 								</form>
@@ -305,8 +350,8 @@
 					</div>
 				</div>
 
-				<!--SAVE BUTTON-->
-				<input type="submit" id="save_changes" value="Save Changes">
+				
+				
 			</div>
 		</div>
 
