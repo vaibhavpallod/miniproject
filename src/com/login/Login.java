@@ -39,7 +39,6 @@ public class Login extends HttpServlet {
 			if (UpdateDatabase.Checktables()) {
 				session.setAttribute("User", dao.getUser(id));
 				session.setAttribute("UserID", id);
-
 				response.sendRedirect("profile_achievements.jsp");
 				session.removeAttribute("WrongCredentials");
 			} 

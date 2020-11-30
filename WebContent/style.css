@@ -722,7 +722,11 @@ option{
     display: inline-block;
     padding-left: 10px;
 }
-
+.error {
+    color: red;
+    font-size: 90%;
+    margin-bottom: 10px;
+}
 
 /* -------------------------------EDIT ACHIVEMENT---------------------------------- */
 

@@ -36,15 +36,35 @@ public class SearchProfile extends HttpServlet {
     		
     		if(selected.equals("profile"))
     		{
+    			/*
+    			 *
+					mysql> DELIMITER $$
+					mysql> CREATE PROCEDURE get_profile_details (IN search_name VARCHAR(100))
+					    -> BEGIN
+					    -> SELECT name,bio FROM studentdetails WHERE name LIKE CONCAT ('%',search_name,'%');
+					    -> END $$
+					
+					mysql> CREATE PROCEDURE get_achievement_details (IN search_name VARCHAR(100))
+					    -> BEGIN
+					    -> SELECT userid,achname,achdes FROM achievement WHERE achname LIKE CONCAT ('%',search_name,'%');
+					    -> END $$
+					
+					
+					mysql> CREATE PROCEDURE get_internship_details (IN search_name VARCHAR(100))
+					    -> BEGIN
+					    -> SELECT userid,intrnname,intrndes FROM internship WHERE intrnname LIKE CONCAT('%',search_name,'%');
+					    -> END $$
+					mysql-> DELIMITER ;
+    			 */
     			Connection con = ConnectionProvider.getConnection();
     			List studentlist=new ArrayList();
-        		String sqlquery="SELECT * FROM studentdetails where name LIKE '%"  + search +"%'";
+        		String sqlquery="{CALL get_profile_details('"+ search +"')}";
         		Statement st = con.createStatement();
         		ResultSet rs = st.executeQuery(sqlquery);
         		while (rs.next()) {
     	    		List student=new ArrayList();
+    	    		student.add(rs.getString(1));
     	    		student.add(rs.getString(2));
-    	    		student.add(rs.getString(6));
     	    		studentlist.add(student);
         		}
         		request.setAttribute("studentlist",studentlist); 
@@ -57,15 +77,15 @@ public class SearchProfile extends HttpServlet {
     			Connection con = ConnectionProvider.getConnection();
     			Dao dao = new Dao();
     			List achievementlist=new ArrayList();
-        		String sqlquery="SELECT * FROM achievement where achname LIKE '%"  + search +"%'";
+        		String sqlquery="{CALL get_achievement_details('"+ search +"')}";
         		Statement st = con.createStatement();
         		ResultSet rs = st.executeQuery(sqlquery);
         		while (rs.next()) {
     	    		List achievement=new ArrayList();
     	    		String id=rs.getString(1);
     	    		achievement.add(dao.getName(id));
+    	    		achievement.add(rs.getString(2));
     	    		achievement.add(rs.getString(3));
-    	    		achievement.add(rs.getString(4));
     	    		achievementlist.add(achievement);
         		}
         		request.setAttribute("achievementlist",achievementlist); 
@@ -78,15 +98,15 @@ public class SearchProfile extends HttpServlet {
     			Connection con = ConnectionProvider.getConnection();
     			Dao dao = new Dao();
     			List internshiplist=new ArrayList();
-        		String sqlquery="SELECT * FROM internship where intrnname LIKE '%"  + search + "%'";
+        		String sqlquery="{CALL get_internship_details('"+ search +"')}";
         		Statement st = con.createStatement();
         		ResultSet rs = st.executeQuery(sqlquery);
         		while (rs.next()) {
     	    		List internship=new ArrayList();
     	    		String id=rs.getString(1);
     	    		internship.add(dao.getName(id));
+    	    		internship.add(rs.getString(2));
     	    		internship.add(rs.getString(3));
-    	    		internship.add(rs.getString(4));
     	    		internshiplist.add(internship);
         		}
         		request.setAttribute("internshiplist",internshiplist); 
