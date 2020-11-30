@@ -111,21 +111,29 @@
 			<!--FIELDS INPUT-->
 			<div class="fields_input">
 			
+				<form action="SaveChanges">
+				
 				<label for="edit_name">Name</label> <input type="text"
-					id="edit_name"
+					id="edit_name" name="edit_name"
 					value="<%=(user.getName() == null ? "" : user.getName())%>">
 				<label for="edit_bio"
 					style="display: inline-block; margin-top: 20px;">Bio</label>
-				<textarea id="edit_bio"><%=(user.getBio() == null ? "" : user.getBio())%></textarea>
+				<textarea id="edit_bio" name="edit_bio"><%=(user.getBio() == null ? "" : user.getBio())%></textarea>
 
 				<label for="edit_email"
 					style="display: inline-block; margin-top: 20px;">Email</label> <input
-					type="email" id="edit_email"
+					type="email" id="edit_email" name="edit_email"
 					value="<%=(user.getEmail() == null ? "" : user.getEmail())%>"
 					style="width: 63%"> <label for="edit_contact"
 					style="display: inline-block; margin-top: 20px;">Contact</label> <input
-					type="tel" id="edit_contact"
+					type="tel" id="edit_contact" name="edit_contact"
 					value="<%=(user.getContact() == null ? "" : user.getContact())%>">
+					
+				<!--SAVE BUTTON-->
+				<input type="submit" id="save_changes" value="Save Changes">	
+				
+				</form>
+					
 
 				<!--EDIT ACHIEVEMENTS-->
 				<div class="edit_achievements">
@@ -172,11 +180,15 @@
 								<p style="font-size: 25px; display: none;" id="title_add_ach">Add
 									Achievement</p>
 								
-        							<form id="ach-form" name="fileform" action="AddAchievement" method="post" enctype="multipart/form-data">
+        							<!-- <form id="ach-form" name="fileform" action="EditAchievement" method="post" enctype="multipart/form-data">
         							
-        							<input type="text" name="ach-id" id="ach-id" value="0" style="display:none;">
+        							 -->
 
 
+									<form id="ach-form" name="fileform" method="post" action="EditAchievement" enctype="multipart/form-data">
+									
+									<input type="text" name="ach-id" id="ach-id" value="0" style="display:none;">
+									
 									<label for="edit_ach_name_input">Name</label> <input
 										name="ach_name" type="text" id="edit_ach_name_input">
 
@@ -189,11 +201,12 @@
 									<label for="edit_ach_image_input">Attach Image</label> 
 									
 									<input
-										name="ach_image" type="file" onchange="readURL(this)" accept="image/*" id="edit_ach_image_input">
+										name="ach_image" type="file" onchange="readURL(this)"
+										accept="image/*" id="edit_ach_image_input">
 									
 									<div class="modal_buttons">
 										<input type="submit" id="save_achievement" value="Save">
-										<button id="delete_ach" formaction="DeleteAchievement">Delete</button>
+										<button id="delete_ach" formaction="DeleteAchievement" formmethod="get">Delete</button>
 									</div>
 								</form>
 							</div>
@@ -288,7 +301,7 @@
 							<div id="form_for_internships">
 								<p style="font-size: 25px;" id="title_edit_int">Edit Internship</p>
 								<p style="font-size: 25px; display: none;" id="title_add_int">Add Internship</p>
-				<form id="int-form" name="fileform" action="AddInternship" enctype="multipart/form-data">
+				<form id="int-form" name="fileform" action="EditInternship" method="post" enctype="multipart/form-data">
 				
 						<input type="text" name="int-id" id="int-id" value="0" style="display:none;">
 				
@@ -311,7 +324,7 @@
 									accept="image/*" id="edit_int_image_input">
 								<div class="modal_buttons">
 									<input type="submit" id="save_internship" value="Save">
-									<button id="delete_int" formaction="DeleteInternship">Delete</button>
+									<button id="delete_int" formaction="DeleteInternship" formmethod="get">Delete</button>
 									<!--DONE WITH DELETE-->
 								</div>
 								</form>
@@ -320,8 +333,7 @@
 					</div>
 				</div>
 
-				<!--SAVE BUTTON-->
-				<input type="submit" id="save_changes" value="Save Changes">
+				
 				
 			</div>
 		</div>

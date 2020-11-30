@@ -249,6 +249,32 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateAchievement(Achievement achievement) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			// "CREATE TABLE achievement(userid varchar(20),achid int NOT NULL
+			// AUTO_INCREMENT PRIMARY KEY,achname varchar(80),achdes varchar(150),achdate
+			// date,achcert longblob,savedon DATETIME,FOREIGN KEY(userid) REFERENCES
+			// studentdetails(userid))";
+
+			String q = "update " + achievementTable
+					+ " set achname=?,achdes=?,achdate=?,achcert=?,savedon=? where achid=?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setString(1, achievement.getName());
+			pstmt.setString(2, achievement.getDescription());
+			pstmt.setDate(3, new java.sql.Date((achievement.getTimestamp().getTime())));
+			pstmt.setBlob(4, achievement.getCertificate());
+			pstmt.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			pstmt.setInt(6, achievement.getAchievementID());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void addInternship(Internship internship) {
 		try {
@@ -266,6 +292,32 @@ public class Dao {
 			pstmt.setString(7, internship.getNor());
 			pstmt.setBlob(8, internship.getCertificate());
 			pstmt.setDate(9, java.sql.Date.valueOf(java.time.LocalDate.now()));
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateInternship(Internship internship) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+
+			String q = "update " + internshipTable
+					+ " set intrnname=?,intrndes=?,startdate=?,enddate=?,status=?,nor=?,intrncert=?,savedon=? where intrnid=?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			
+			pstmt.setString(1, internship.getName());
+			pstmt.setString(2, internship.getDescription());
+			pstmt.setDate(3, new java.sql.Date(internship.getStartDate().getTime()));
+			pstmt.setDate(4, new java.sql.Date(internship.getEndDate().getTime()));
+			pstmt.setString(5, internship.getStatus());
+			pstmt.setString(6, internship.getNor());
+			pstmt.setBlob(7, internship.getCertificate());
+			pstmt.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			pstmt.setInt(9, internship.getInternshipID());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -352,6 +404,27 @@ public class Dao {
 		User user = new User();
 		user.notify();
 
+	}
+	
+	public User updateDetails(User user) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			String q = "UPDATE " + studentDetailsTable + " SET name=?,bio=?,email=?,mobile=? where " + studentDetailsTable + ".userid = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getBio());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setInt(4, Integer.parseInt(user.getContact()));
+			pstmt.setString(5, user.getID());
+
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 }

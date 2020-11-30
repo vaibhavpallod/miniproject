@@ -42,6 +42,9 @@ public class EditInternship extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int internshipId = Integer.parseInt(request.getParameter("int-id"));
+		
 		Dao dao = new Dao();
 		try {
 	        InputStream inputStream = null; // input stream of the upload file
@@ -85,7 +88,15 @@ public class EditInternship extends HttpServlet {
 			}
 			
 			Internship internship = new Internship(id,intern_name,intern_des,intern_status,intern_nor,start_date,end_date,inputStream,new Timestamp(System.currentTimeMillis()));
-			dao.addInternship(internship);
+			
+			if(internshipId == 0) {
+				dao.addInternship(internship);
+			}else {
+				internship.setInternshipID(internshipId);
+				dao.updateInternship(internship);
+			}
+			
+			
 			session.setAttribute("User", dao.getUser(session.getAttribute("UserID").toString()));
 			con.close();
 			response.sendRedirect("editprofile.jsp");

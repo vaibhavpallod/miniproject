@@ -44,8 +44,7 @@ public class EditAchievement extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("EDIT ACH CALLED");
-		
+		int achievementId = Integer.parseInt(request.getParameter("ach-id"));
 		
 		Dao dao = new Dao();
 		try {
@@ -87,7 +86,15 @@ public class EditAchievement extends HttpServlet {
 				
 			//"CREATE TABLE achievement(userid varchar(20),achid int NOT NULL AUTO_INCREMENT PRIMARY KEY,achname varchar(80),achdes varchar(150),achdate date,achcert longblob,savedon DATETIME,FOREIGN KEY(userid) REFERENCES studentdetails(userid))";
 			Achievement achievement = new Achievement(id,ach_name,ach_des,ach_date,inputStream,new Timestamp(System.currentTimeMillis()));
-			dao.addAchievement(achievement);
+			
+			if(achievementId == 0) {
+				dao.addAchievement(achievement);
+			}else {
+				achievement.setAchievementID(achievementId);
+				dao.updateAchievement(achievement);
+			}
+			
+			
 			session.setAttribute("User", dao.getUser(session.getAttribute("UserID").toString()));
 			
 			con.close();

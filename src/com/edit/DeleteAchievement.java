@@ -29,7 +29,9 @@ public class DeleteAchievement extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("a : "+request.getParameter("ach-id"));
 		int achievementId = Integer.parseInt(request.getParameter("ach-id"));
+		System.out.println("b");
 		Dao dao = new Dao();
 		dao.deleteAchievement(achievementId);
 		HttpSession session = request.getSession();
