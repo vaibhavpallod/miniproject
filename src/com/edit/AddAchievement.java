@@ -1,5 +1,6 @@
 package com.edit;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,29 +24,34 @@ import com.dao.ConnectionProvider;
 import com.dao.Dao;
 import com.mysql.cj.jdbc.Blob;
 import com.user.Achievement;
-@MultipartConfig(maxFileSize = 16177215)
-
-@WebServlet("/EditAchievement")
-public class EditAchievement extends HttpServlet {
+import com.user.Internship;
+/**
+ * Servlet implementation class AddAchievement
+ */
+@WebServlet("/AddAchievement")
+public class AddAchievement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public EditAchievement() {
-		super();
-
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddAchievement() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+   
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		int achievementId = Integer.parseInt(request.getParameter("ach-id"));
-		
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dao dao = new Dao();
 		try {
 	        InputStream inputStream = null; // input stream of the upload file
@@ -86,15 +92,7 @@ public class EditAchievement extends HttpServlet {
 				
 			//"CREATE TABLE achievement(userid varchar(20),achid int NOT NULL AUTO_INCREMENT PRIMARY KEY,achname varchar(80),achdes varchar(150),achdate date,achcert longblob,savedon DATETIME,FOREIGN KEY(userid) REFERENCES studentdetails(userid))";
 			Achievement achievement = new Achievement(id,ach_name,ach_des,ach_date,inputStream,new Timestamp(System.currentTimeMillis()));
-			
-			if(achievementId == 0) {
-				dao.addAchievement(achievement);
-			}else {
-				achievement.setAchievementID(achievementId);
-				dao.updateAchievement(achievement);
-			}
-			
-			
+			dao.addAchievement(achievement);
 			session.setAttribute("User", dao.getUser(session.getAttribute("UserID").toString()));
 			
 			con.close();
@@ -112,18 +110,3 @@ public class EditAchievement extends HttpServlet {
 	}
 
 }
-//String insertValue = "INSERT INTO achievement VALUES(?,?,?,?,?,?)";
-//PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(insertValue);
-//pstmt.setString(1, id);
-//pstmt.setString(2, ach_name);
-//pstmt.setString(3, ach_des);
-//pstmt.setDate(4, new java.sql.Date(ach_date.getTime()));
-//pstmt.setBinaryStream(5, new ByteArrayInputStream(request.getParameter("ach_image").getBytes()));
-//pstmt.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
-//pstmt.executeUpdate();
-
-
-//DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-//Calendar calobj = Calendar.getInstance();
-//System.out.println(df.format(calobj.getTime()));
-

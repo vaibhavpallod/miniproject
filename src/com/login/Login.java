@@ -2,6 +2,7 @@ package com.login;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,21 +31,18 @@ public class Login extends HttpServlet {
 		String id = request.getParameter("st_id");
 		String password = request.getParameter("st_pw");
 		HttpSession session = request.getSession();
-
+		System.out.println(new Timestamp(System.currentTimeMillis()));
 		Dao dao = new Dao();
 		if (dao.checkIdAndPassword(id, password)) {
 			UpdateDatabase.checkdabase();
-
+//			UpdateDatabase.checkFunction();
 			if (UpdateDatabase.Checktables()) {
 				session.setAttribute("User", dao.getUser(id));
 				session.setAttribute("UserID", id);
 
 				response.sendRedirect("profile_achievements.jsp");
 				session.removeAttribute("WrongCredentials");
-			} else {
-				session.setAttribute("WrongCredentials", true);
-				response.sendRedirect("login.jsp");
-			}
+			} 
 
 		} else {
 //			session.setAttribute("WrongCredentials", true);

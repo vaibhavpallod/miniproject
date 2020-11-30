@@ -1,12 +1,15 @@
 package com.dao;
 
 import java.io.FileOutputStream;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -25,6 +28,7 @@ public class Dao {
 	private String internshipTable = "internship";
 	private String departmentTable = "department";
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+	String function = "SELECT * FROM studentdetails";
 
 	public boolean checkIdAndPassword(String id, String password) {
 		boolean isCorrect = false;
@@ -146,13 +150,13 @@ public class Dao {
 
 			if (i == 0) {
 				blob = (Blob) resultSet.getBlob("achcert");
-				System.out.println("get xx    "+blob);
+				System.out.println("get xx    " + blob);
 
 			} else if (i == 1) {
 				blob = (Blob) resultSet.getBlob("intrncert");
-				System.out.println("get yy    "+blob);
+				System.out.println("get yy    " + blob);
 
-			} else if(i == 3) {
+			} else if (i == 3) {
 				blob = (Blob) resultSet.getBlob("pic");
 				System.out.println("get zz    " + blob);
 			}
@@ -186,6 +190,7 @@ public class Dao {
 			while (result.next()) {
 				Achievement achievement = new Achievement();
 				achievement.setID(result.getString(1));
+				achievement.setAchievementID(result.getInt(2));
 				achievement.setName(result.getString(3));
 				achievement.setDescription(result.getString(4));
 				achievement.setDate(result.getDate(5));
@@ -214,6 +219,7 @@ public class Dao {
 			while (result.next()) {
 				Internship internship = new Internship();
 				internship.setID(result.getString(1));
+				internship.setInternshipID(result.getInt(2));
 				internship.setName(result.getString(3));
 				internship.setDescription(result.getString(4));
 				internship.setStartDate(result.getDate(5));
@@ -246,11 +252,37 @@ public class Dao {
 			pstmt.setString(1, achievement.getID());
 			pstmt.setString(2, achievement.getName());
 			pstmt.setString(3, achievement.getDescription());
-			pstmt.setDate(4, new java.sql.Date((achievement.getTimestamp().getTime())));
+			pstmt.setTimestamp(4,(achievement.getTimestamp()));
 			pstmt.setBlob(5, achievement.getCertificate());
 			pstmt.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
 //			pstmt.setTimestamp(4, achievement.getTimestamp());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateAchievement(Achievement achievement) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			// "CREATE TABLE achievement(userid varchar(20),achid int NOT NULL
+			// AUTO_INCREMENT PRIMARY KEY,achname varchar(80),achdes varchar(150),achdate
+			// date,achcert longblob,savedon DATETIME,FOREIGN KEY(userid) REFERENCES
+			// studentdetails(userid))";
+
+			String q = "update " + achievementTable
+					+ " set achname=?,achdes=?,achdate=?,achcert=?,savedon=? where achid=?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setString(1, achievement.getName());
+			pstmt.setString(2, achievement.getDescription());
+			pstmt.setDate(3, new java.sql.Date((achievement.getTimestamp().getTime())));
+			pstmt.setBlob(4, achievement.getCertificate());
+			pstmt.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			pstmt.setInt(6, achievement.getAchievementID());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -276,6 +308,59 @@ public class Dao {
 			pstmt.setBlob(8, internship.getCertificate());
 			pstmt.setDate(9, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateInternship(Internship internship) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+
+			String q = "update " + internshipTable
+					+ " set intrnname=?,intrndes=?,startdate=?,enddate=?,status=?,nor=?,intrncert=?,savedon=? where intrnid=?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setString(1, internship.getName());
+			pstmt.setString(2, internship.getDescription());
+			pstmt.setDate(3, new java.sql.Date(internship.getStartDate().getTime()));
+			pstmt.setDate(4, new java.sql.Date(internship.getEndDate().getTime()));
+			pstmt.setString(5, internship.getStatus());
+			pstmt.setString(6, internship.getNor());
+			pstmt.setBlob(7, internship.getCertificate());
+			pstmt.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			pstmt.setInt(9, internship.getInternshipID());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteAchievement(int achievementId) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			String q = "delete from " + achievementTable + " where achid = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setInt(1, achievementId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteInternship(int internshipId) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			String q = "delete from " + internshipTable + " where intrnid = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setInt(1, internshipId);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -359,7 +444,7 @@ public class Dao {
 			try {
 				Statement stmt = con.createStatement();
 				ResultSet resultSet = stmt.executeQuery(query);
-				resultSet.next();	
+				resultSet.next();
 				pic.setUserID(id);
 				ens = getEncodedString(resultSet, 3);
 				pic.setEncodedString(ens);
@@ -371,36 +456,79 @@ public class Dao {
 		}
 		return ens;
 	}
-	
-	
+
+	public User updateDetails(User user) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			String q = "UPDATE " + studentDetailsTable + " SET name=?,bio=?,email=?,mobile=? where "
+					+ studentDetailsTable + ".userid = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getBio());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setInt(4, Integer.parseInt(user.getContact()));
+			pstmt.setString(5, user.getID());
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
 	public ArrayList<User> getAllUsers() {
 		Connection con = ConnectionProvider.getConnection();
 		String query = "SELECT * FROM studentdetails";
 		ArrayList<User> users = new ArrayList<User>();
-				try {
-					Statement stmt = con.createStatement();
-					ResultSet rs = stmt.executeQuery(query);
-					
-					while(rs.next()){
-						String id = rs.getString("userid");
-						
-						User user = new User();
-						user.setID(id);
-						user.setName(rs.getString("name"));
-						user.setBio(rs.getString("bio"));
-						user.setAchievements(getAchievements(id));
-						user.setInternships(getInternships(id));
-						
-						users.add(user);
-						
-					}
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				String id = rs.getString("userid");
+
+				User user = new User();
+				user.setID(id);
+				user.setName(rs.getString("name"));
+				user.setBio(rs.getString("bio"));
+				user.setAchievements(getAchievements(id));
+				user.setInternships(getInternships(id));
+
+				users.add(user);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return users;
 	}
-	
+
+	public boolean compareTimestamp(Timestamp t1, Timestamp t2) {
+		Connection con = ConnectionProvider.getConnection();
+//		String function = "DELIMITER $$ \n"+" CREATE FUNCTION compareTimestamp(t1 timestamp,t2 timestamp) RETURNS bool DETERMINISTIC BEGIN DECLARE isearly BOOL;SET isearly = FALSE;IF t1<t2 THEN SET isearly=true; END IF; RETURN isearly; END end DELIMITER ;";
+		String query = "SELECT student.compareTimestamp(" + "'" + t1 + "','" + t2 + "'" + ")";
+		boolean bool = false;
+		try {
+			System.out.println(1);
+			CallableStatement cstmt = con.prepareCall("{? = call compareTimestamp(?,?)}");
+			cstmt.setTimestamp(2, t1);
+			cstmt.setTimestamp(3, t2);
+			cstmt.registerOutParameter(1, Types.BOOLEAN);
+			cstmt.execute();
+			System.out.println(2);
+			bool = cstmt.getBoolean(1);  //getBoolean(0);
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxx   "+bool);
+
+		return bool;
+	}
 
 }
