@@ -1,4 +1,5 @@
 <%@page import="com.user.*"%>
+<%@page import="com.dao.*"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -16,8 +17,12 @@
         <title>Search/Profiles</title>        
     </head>
     <body>
-
-        <!--TITLE OF THE SITE-->
+	<%
+		Dao dao = new Dao();
+		String ecspic = "&nbsp;";
+		//ecspic=dao.getProfilePic(user.getID());
+	%>
+	<!--TITLE OF THE SITE-->
         <div id="title">
             <b class="first_letter_in_title">C</b>ollege <b class="first_letter_in_title">N</b>etwork <b class="first_letter_in_title">S</b>ystem
         </div>
@@ -60,7 +65,7 @@
             <div class="search_list">
 
                 <!--TODO ADD DYNAMIC HERE-->
-                <%
+                <%                	
 					List studentlist=new ArrayList();
 					studentlist=(ArrayList)request.getAttribute("studentlist");	
 					if(studentlist!=null && studentlist.size()>0 ){				
@@ -69,13 +74,15 @@
 				<%
 					for(int i=0;i<studentlist.size();i++){
 						List student=(List)studentlist.get(i);
+						String id = student.get(0).toString();
+						ecspic=dao.getProfilePic(id);
 				%>
                 <button class="search_one_profile_button">
                     <div class="search_one_profile">
-                        <img src="images/default_prof_pic.png" class="search_prof_pic">
+                        <img src="data:image/png;base64,<%=ecspic %>" class="search_prof_pic">
                         <div class="search_prof_info">
-                            <p id="search_prof_name" style="font-size: 20px; margin: 0;"><%=student.get(0) %></p>
-                            <p id="search_prof_bio" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=student.get(1) %></p>
+                            <p id="search_prof_name" style="font-size: 20px; margin: 0;"><%=student.get(1) %></p>
+                            <p id="search_prof_bio" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=student.get(2) %></p>
                          </div>
                     </div>
                 </button>

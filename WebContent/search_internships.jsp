@@ -1,5 +1,6 @@
 <%@page import="com.user.*"%>
 <%@page import="java.util.*"%>
+<%@page import="com.dao.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%
@@ -17,6 +18,12 @@
     </head>
     <body>
 
+	<%
+		Dao dao = new Dao();
+		String ecspic = "&nbsp;";
+		//ecspic=dao.getProfilePic(user.getID());
+	%>
+	
         <!--TITLE OF THE SITE-->
         <div id="title">
             <b class="first_letter_in_title">C</b>ollege <b class="first_letter_in_title">N</b>etwork <b class="first_letter_in_title">S</b>ystem
@@ -71,10 +78,13 @@
 				<%
 					for(int i=0;i<internshiplist.size();i++){
 						List internship=(List)internshiplist.get(i);
+						String id = internship.get(3).toString();
+						ecspic=dao.getProfilePic(id);
+						
 				%>
                 <button class="search_one_internship_button">
                     <div class="search_one_internship">
-                        <img src="images/default_prof_pic.png" class="search_prof_pic">
+                        <img src="data:image/png;base64,<%=ecspic %>" class="search_prof_pic">
                         <div class="search_int_info">
                             <p id="search_int_name" style="font-size: 20px; margin: 0;"><%=internship.get(0) %></p>
                             <p id="search_int_intname" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=internship.get(1) %></p>

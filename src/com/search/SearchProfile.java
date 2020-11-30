@@ -41,7 +41,7 @@ public class SearchProfile extends HttpServlet {
 					mysql> DELIMITER $$
 					mysql> CREATE PROCEDURE get_profile_details (IN search_name VARCHAR(100))
 					    -> BEGIN
-					    -> SELECT name,bio FROM studentdetails WHERE name LIKE CONCAT ('%',search_name,'%');
+					    -> SELECT id,name,bio FROM studentdetails WHERE name LIKE CONCAT ('%',search_name,'%');
 					    -> END $$
 					
 					mysql> CREATE PROCEDURE get_achievement_details (IN search_name VARCHAR(100))
@@ -65,6 +65,8 @@ public class SearchProfile extends HttpServlet {
     	    		List student=new ArrayList();
     	    		student.add(rs.getString(1));
     	    		student.add(rs.getString(2));
+    	    		student.add(rs.getString(3));
+    	    		
     	    		studentlist.add(student);
         		}
         		request.setAttribute("studentlist",studentlist); 
@@ -86,6 +88,7 @@ public class SearchProfile extends HttpServlet {
     	    		achievement.add(dao.getName(id));
     	    		achievement.add(rs.getString(2));
     	    		achievement.add(rs.getString(3));
+    	    		achievement.add(id);
     	    		achievementlist.add(achievement);
         		}
         		request.setAttribute("achievementlist",achievementlist); 
@@ -107,6 +110,7 @@ public class SearchProfile extends HttpServlet {
     	    		internship.add(dao.getName(id));
     	    		internship.add(rs.getString(2));
     	    		internship.add(rs.getString(3));
+    	    		internship.add(id);
     	    		internshiplist.add(internship);
         		}
         		request.setAttribute("internshiplist",internshiplist); 
