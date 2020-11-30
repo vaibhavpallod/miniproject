@@ -84,7 +84,7 @@
 				%>
                 <button class="search_one_internship_button">
                     <div class="search_one_internship">
-                        <img src="data:image/png;base64,<%=ecspic %>" class="search_prof_pic">
+                        <img src="<%=(ecspic==null?"images/default_prof_pic.png":"data:image/png;base64,"+ecspic) %>" class="search_prof_pic">
                         <div class="search_int_info">
                             <p id="search_int_name" style="font-size: 20px; margin: 0;"><%=internship.get(0) %></p>
                             <p id="search_int_intname" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=internship.get(1) %></p>

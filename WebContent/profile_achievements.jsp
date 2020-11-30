@@ -69,16 +69,12 @@ User user=(User)session.getAttribute("User");
             <!--PROFILE INFO-->
             <div class="profile_info">
 	            <%	Dao dao = new Dao();
-	            String ecspic = "&nbsp;";
+	            String ecspic = "&nbsp";
 	            ecspic=dao.getProfilePic(user.getID());
 	
 	      	 	%>
             
-            	<% if(ecspic.equals("null"))  { %>
-			    <img src="images/default_prof_pic.png" id="profile_pic">
-            	<% }else{System.out.print("yessssssssssssssssssssss"); %>
-			    <img id="profile_pic" src="data:image/png;base64,<%=ecspic %>" />
-				<%} %>
+            	<img src="<%=(ecspic==null?"images/default_prof_pic.png":"data:image/png;base64,"+ecspic) %>" id="profile_pic">
 			
             
             

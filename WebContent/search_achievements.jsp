@@ -82,7 +82,7 @@
 				%>
                 <button class="search_one_achievement_button">
                     <div class="search_one_achievement">
-                        <img src="data:image/png;base64,<%=ecspic %>" class="search_prof_pic">
+                        <img src="<%=(ecspic==null?"images/default_prof_pic.png":"data:image/png;base64,"+ecspic) %>" class="search_prof_pic">
                         <div class="search_ach_info">
                             <p id="search_ach_name" style="font-size: 20px; margin: 0;"><%=achievement.get(0) %></p>
                             <p id="search_ach_achname" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=achievement.get(1) %></p>
