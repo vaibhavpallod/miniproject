@@ -13,13 +13,15 @@ var spans_ach = document.getElementsByClassName("close_achievement");
 editAchievementOnClick = function() {
   modal_ach.style.display = "block";
   document.getElementById("edit_ach_name_input").value = this.getElementsByClassName("edit_ach_name")[0].innerHTML.toString();
-  //document.getElementById("edit_ach_date_input").value = this.getElementsByClassName("edit_ach_date")[0].innerHTML.toString();
+  document.getElementById("edit_ach_date_input").value = this.getElementsByClassName("edit_ach_date")[0].innerHTML;
   document.getElementById("edit_ach_description_input").value = this.getElementsByClassName("edit_ach_description")[0].innerHTML.toString();
 
   document.getElementById("title_edit_ach").style.display = "block";
   document.getElementById("title_add_ach").style.display = "none";
 
   document.getElementById("delete_ach").style.display = "inline-block";
+  
+  document.getElementById("ach-id").value=this.id.toString();
 }
 
 for(var i=0;i<btns_ach.length;i++){
@@ -51,14 +53,16 @@ var spans_int = document.getElementsByClassName("close_internship");
 editInternshipOnClick = function() {
   modal_int.style.display = "block";
   document.getElementById("edit_int_name_input").value = this.getElementsByClassName("edit_int_name")[0].innerHTML.toString();
-  document.getElementById("edit_int_startdate_input").value = this.getElementsByClassName("edit_int_startdate")[0].innerHTML.toString();
-  document.getElementById("edit_int_enddate_input").value = this.getElementsByClassName("edit_int_enddate")[0].innerHTML.toString();
+  document.getElementById("edit_int_startdate_input").value = this.getElementsByClassName("edit_int_startdate")[0].innerHTML;
+  document.getElementById("edit_int_enddate_input").value = this.getElementsByClassName("edit_int_enddate")[0].innerHTML;
   document.getElementById("edit_int_description_input").value = this.getElementsByClassName("edit_int_description")[0].innerHTML.toString();
 
   document.getElementById("title_edit_int").style.display = "block";
   document.getElementById("title_add_int").style.display = "none";
 
   document.getElementById("delete_int").style.display = "inline-block";
+  
+  document.getElementById("int-id").value=this.id.toString();
 }
 
 for(var i=0;i<btns_int.length;i++){
@@ -98,6 +102,8 @@ plus_ach.onclick = function(){
   document.getElementById("title_add_ach").style.display = "block";
 
   document.getElementById("delete_ach").style.display = "none";
+  
+  document.getElementById("ach-id").value="0";
 }
 
 /*PLUS BUTTON FOR INTERNSHIP*/
@@ -114,21 +120,7 @@ plus_int.onclick = function(){
   document.getElementById("title_add_int").style.display = "block";
 
   document.getElementById("delete_int").style.display = "none";
+  
+  document.getElementById("int-id").value="0";
 }
 
-/*
-var viewcertificate =  document.getElementById("viewCertificate");
-
-viewcertificate.onclick = function() {
-	document.getElementById("showImage").style.display = "block";
-	document.getElementById("showinImagetag").src = "data:image/png;base64," + encodedString;
-	window.alert("CLICKED");
-}
-*/
-
-function setImage(encodedString) {
-	document.getElementById("showImage").style.display = "block";
-	document.getElementById("showinImagetag").src = "data:image/png;base64," + encodedString;
-//	window.alert(encodedString);
-	console.log(encodedString);
-}

@@ -176,6 +176,7 @@ public class Dao {
 			while (result.next()) {
 				Achievement achievement = new Achievement();
 				achievement.setID(result.getString(1));
+				achievement.setAchievementID(result.getInt(2));
 				achievement.setName(result.getString(3));
 				achievement.setDescription(result.getString(4));
 				achievement.setDate(result.getDate(5));
@@ -204,6 +205,7 @@ public class Dao {
 			while (result.next()) {
 				Internship internship = new Internship();
 				internship.setID(result.getString(1));
+				internship.setInternshipID(result.getInt(2));
 				internship.setName(result.getString(3));
 				internship.setDescription(result.getString(4));
 				internship.setStartDate(result.getDate(5));
@@ -265,6 +267,34 @@ public class Dao {
 			pstmt.setBlob(8, internship.getCertificate());
 			pstmt.setDate(9, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteAchievement(int achievementId) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			String q = "delete from "+achievementTable+" where achid = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setInt(1, achievementId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteInternship(int internshipId) {
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			String q = "delete from "+internshipTable+" where intrnid = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(q);
+
+			pstmt.setInt(1, internshipId);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -25,26 +25,19 @@ import com.mysql.cj.jdbc.Blob;
 import com.user.Achievement;
 @MultipartConfig(maxFileSize = 16177215)
 
-@WebServlet("/EditAchievement")
-public class EditAchievement extends HttpServlet {
+@WebServlet("/AddAchievement")
+public class AddAchievement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public EditAchievement() {
+	public AddAchievement() {
 		super();
 
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		System.out.println("EDIT ACH CALLED");
+		System.out.println("ADD ACH CALLED");
 		
 		
 		Dao dao = new Dao();
