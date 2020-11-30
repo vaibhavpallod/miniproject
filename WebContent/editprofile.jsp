@@ -96,7 +96,7 @@
 						style="display: none; cursor: pointer;">
 				</p>
 				<p>
-				<% if(ecspic.equals("null"))  { System.out.print("null in profile pic"); %>
+				<% if(ecspic==null)  { System.out.print("null in profile pic"); %>
 					<img id="input_prof_pic" width="150px" height="150px"
 						style="border: 1px solid black; border-radius: 75px;"
 						src="images/default_prof_pic.png" />

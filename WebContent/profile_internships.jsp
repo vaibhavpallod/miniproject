@@ -3,6 +3,7 @@
 <%@page import="java.util.Base64"%>
  <%@page import="java.sql.*"%>
   <%@page import="java.util.*"%>
+  <%@page import="com.dao.*" %>
 <%@page import="com.user.*" %>
  <%@page import="javax.*"%>
     <%
@@ -66,7 +67,16 @@ User user=(User)session.getAttribute("User");
 
             <!--PROFILE INFO-->
             <div class="profile_info">
-                <img src="images/default_prof_pic.png" id="profile_pic">
+                
+                <%	Dao dao = new Dao();
+	            String ecspic = "&nbsp";
+	            ecspic=dao.getProfilePic(user.getID());
+	
+	      	 	%>
+            
+            	<img src="<%=(ecspic==null?"images/default_prof_pic.png":"data:image/png;base64,"+ecspic) %>" id="profile_pic">
+                
+                
                 <div class="profile_details">
                     <p id="name" style="font-size: 30px;"><%=user.getName() %></p>
                     <p id="department" style="font-size: 20px; color: grey;"><%=user.getDepartment() %></p>

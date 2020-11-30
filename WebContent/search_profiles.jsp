@@ -77,9 +77,10 @@
 						String id = student.get(0).toString();
 						ecspic=dao.getProfilePic(id);
 				%>
+				
                 <button class="search_one_profile_button">
                     <div class="search_one_profile">
-                        <img src="data:image/png;base64,<%=ecspic %>" class="search_prof_pic">
+                        <img src="<%=(ecspic==null?"images/default_prof_pic.png":"data:image/png;base64,"+ecspic) %>" class="search_prof_pic">
                         <div class="search_prof_info">
                             <p id="search_prof_name" style="font-size: 20px; margin: 0;"><%=student.get(1) %></p>
                             <p id="search_prof_bio" style="font-size: 17px; margin: 5px 0 0 0; color: grey;"><%=student.get(2) %></p>

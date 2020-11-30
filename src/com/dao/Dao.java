@@ -438,7 +438,7 @@ public class Dao {
 	public String getProfilePic(String id) {
 		Connection con = ConnectionProvider.getConnection();
 		ProfilePic pic = new ProfilePic();
-		String ens = "null";
+		String ens = null;
 		if (checkProfilepic(id)) {
 			String query = "SELECT * from profilepic where profilepic.userid = " + id;
 			try {

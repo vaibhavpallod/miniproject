@@ -136,7 +136,7 @@
         
                             </canvas> -->
                             <span>
-        	            	    <img src="data:image/png;base64,<%=encodedString%>" style="border-radius: 50%; width: 70px;height: 70px;">
+                            	<img src="<%=(encodedString==null?"images/default_prof_pic.png":"data:image/png;base64,"+encodedString) %>" style="border-radius: 50%; border:2px solid black; width: 70px;height: 70px;">
  		    			     </span>
         
                         </div>
@@ -196,7 +196,7 @@
         
                             </canvas> -->
                             <span>
-        	            	    <img src="data:image/png;base64,<%=encodedString%>" style="border-radius: 50%; width: 70px;height: 70px;">
+        	            	    <img src="<%=(encodedString==null?"images/default_prof_pic.png":"data:image/png;base64,"+encodedString) %>" style="border-radius: 50%; border:2px solid black; width: 70px;height: 70px;">
  		    			     </span>
         
                         </div>
@@ -256,7 +256,7 @@
         
                             </canvas> -->
                             <span>
-        	            	    <img src="data:image/png;base64,<%=encodedString%>" style="border-radius: 50%; width: 70px;height: 70px;">
+        	            	    <img src="<%=(encodedString==null?"images/default_prof_pic.png":"data:image/png;base64,"+encodedString) %>" style="border-radius: 50%; border:2px solid black; width: 70px;height: 70px;">
  		    			     </span>
         
                         </div>
