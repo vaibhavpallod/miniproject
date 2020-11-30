@@ -172,7 +172,7 @@
 								<p style="font-size: 25px; display: none;" id="title_add_ach">Add
 									Achievement</p>
 								
-        							<form id="ach-form" name="fileform" action="AddAchievement" enctype="multipart/form-data">
+        							<form id="ach-form" name="fileform" action="AddAchievement" method="post" enctype="multipart/form-data">
         							
         							<input type="text" name="ach-id" id="ach-id" value="0" style="display:none;">
 

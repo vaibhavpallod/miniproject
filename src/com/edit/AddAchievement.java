@@ -1,5 +1,6 @@
 package com.edit;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,23 +24,34 @@ import com.dao.ConnectionProvider;
 import com.dao.Dao;
 import com.mysql.cj.jdbc.Blob;
 import com.user.Achievement;
-@MultipartConfig(maxFileSize = 16177215)
-
+import com.user.Internship;
+/**
+ * Servlet implementation class AddAchievement
+ */
 @WebServlet("/AddAchievement")
 public class AddAchievement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public AddAchievement() {
-		super();
-
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddAchievement() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+   
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		System.out.println("ADD ACH CALLED");
-		
-		
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dao dao = new Dao();
 		try {
 	        InputStream inputStream = null; // input stream of the upload file
@@ -98,18 +110,3 @@ public class AddAchievement extends HttpServlet {
 	}
 
 }
-//String insertValue = "INSERT INTO achievement VALUES(?,?,?,?,?,?)";
-//PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(insertValue);
-//pstmt.setString(1, id);
-//pstmt.setString(2, ach_name);
-//pstmt.setString(3, ach_des);
-//pstmt.setDate(4, new java.sql.Date(ach_date.getTime()));
-//pstmt.setBinaryStream(5, new ByteArrayInputStream(request.getParameter("ach_image").getBytes()));
-//pstmt.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
-//pstmt.executeUpdate();
-
-
-//DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-//Calendar calobj = Calendar.getInstance();
-//System.out.println(df.format(calobj.getTime()));
-
