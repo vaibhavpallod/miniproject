@@ -371,5 +371,36 @@ public class Dao {
 		}
 		return ens;
 	}
+	
+	
+	public ArrayList<User> getAllUsers() {
+		Connection con = ConnectionProvider.getConnection();
+		String query = "SELECT * FROM studentdetails";
+		ArrayList<User> users = new ArrayList<User>();
+				try {
+					Statement stmt = con.createStatement();
+					ResultSet rs = stmt.executeQuery(query);
+					
+					while(rs.next()){
+						String id = rs.getString("userid");
+						
+						User user = new User();
+						user.setID(id);
+						user.setName(rs.getString("name"));
+						user.setBio(rs.getString("bio"));
+						user.setAchievements(getAchievements(id));
+						user.setInternships(getInternships(id));
+						
+						users.add(user);
+						
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		return users;
+	}
+	
 
 }
