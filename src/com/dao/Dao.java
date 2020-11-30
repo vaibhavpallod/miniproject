@@ -416,7 +416,7 @@ public class Dao {
 
 	public boolean checkProfilepic(String id) {
 		Connection con = ConnectionProvider.getConnection();
-		String check = "SELECT userid FROM profilepic WHERE profilepic.userid = 39 ";
+		String check = "SELECT userid FROM profilepic WHERE profilepic.userid = "+id;
 		boolean isavailable = false;
 		Statement stmt;
 		try {
