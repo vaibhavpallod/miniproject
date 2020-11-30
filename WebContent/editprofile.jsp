@@ -96,11 +96,11 @@
 						style="display: none; cursor: pointer;">
 				</p>
 				<p>
-				<% if(ecspic.equals("null"))  {System.out.print("nullllllllllllllllll"); %>
+				<% if(ecspic.equals("null"))  { System.out.print("null in profile pic"); %>
 					<img id="input_prof_pic" width="150px" height="150px"
 						style="border: 1px solid black; border-radius: 75px;"
 						src="images/default_prof_pic.png" />
-				<% }else{System.out.print("yessssssssssssssssssssss"); %>
+				<% }else{ %>
 					<img id="input_prof_pic" width="150px" height="150px"
 						style="border: 1px solid black; border-radius: 75px;"
 						src="data:image/png;base64,<%=ecspic %>" />
@@ -111,7 +111,7 @@
 				</p>
 				<!-- <input type="submit" id="save_achievement" value="Save">
 				 -->
-				 <input type="submit" id="callservletforpic" value="Save" > 					
+				 <input type="submit" id="callservletforpic" value="Save" style="display: none" > 					
 			
 			</form>
 				<script>
@@ -271,10 +271,10 @@
 						}
 					%>
 					
-						<div id="showImage" class="modal-content2">
+					<!-- 	<div id="showImage" class="modal-content2">
 							<span class="close_image">&times;</span>
 							<img id="showinImagetag" alt="image">
-						</div>
+						</div> -->
 						
 					<script>
 					/*

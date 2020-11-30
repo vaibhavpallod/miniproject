@@ -1,8 +1,10 @@
 package com.updateDB;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import com.dao.ConnectionProvider;
 import com.dao.Dao;
@@ -44,18 +46,14 @@ public class UpdateDatabase {
 		String internshipTable = "internship";
 		String departmentTable = "department";
 		String profileTable = "profilepic";
-		
-		
+
 		Connection con = ConnectionProvider.getConnection();
 
-		
 		try {
 
 			Statement stmt;
 			stmt = (Statement) con.createStatement();
 
-			
-			
 			tExists = tableDao.checkTable(con, departmentTable);
 
 			if (!tExists) {
@@ -65,59 +63,56 @@ public class UpdateDatabase {
 				System.out.println("*******************department TABLE CREATED*********************");
 			}
 
-			
-			
 			tExists = tableDao.checkTable(con, studentDetailsTable);
 
 			if (!tExists) {
-				// if Table STUDENT_DETAILS does not exists creating dynamic table 
+				// if Table STUDENT_DETAILS does not exists creating dynamic table
 				String createtable = "CREATE TABLE studentdetails(userid varchar(20) PRIMARY KEY    ,name varchar(50),rollno varchar(30),deptid int,class varchar(30),bio varchar(200),email varchar(50),mobile int,FOREIGN KEY(deptid) REFERENCES department(deptid));";
 				stmt.executeUpdate(createtable);
 				System.out.println("*******************studentdetails TABLE CREATED*********************");
 			}
 
-			
-			
-			
 			tExists = tableDao.checkTable(con, achievementTable);
 
 			if (!tExists) {
 				// if Table achievement does not exists creating dynamic table
-				String createtable = "CREATE TABLE achievement(userid varchar(20),achid int NOT NULL AUTO_INCREMENT PRIMARY KEY,achname varchar(80),achdes varchar(150),achdate date,achcert longblob,savedon DATETIME,FOREIGN KEY(userid) REFERENCES studentdetails(userid))";
+				String createtable = "CREATE TABLE achievement(userid varchar(20),achid int NOT NULL AUTO_INCREMENT PRIMARY KEY,achname varchar(80),achdes varchar(150),achdate date,achcert longblob,savedon timestamp,FOREIGN KEY(userid) REFERENCES studentdetails(userid))";
 				stmt.executeUpdate(createtable);
 				System.out.println("*******************ACHIEVEMENT TABLE CREATED*********************");
 			}
-			
-			
+
 			tExists = tableDao.checkTable(con, internshipTable);
 
 			if (!tExists) {
-				// if Table INTERNSHIP does not exists creating dynamic table 
-				String createtable = "CREATE TABLE internship(userid varchar(20) ,intrnid int NOT NULL AUTO_INCREMENT PRIMARY KEY,intrnname varchar(80),intrndes varchar(150),startdate date,enddate date,status varchar(30),nor varchar(10),intrncert longblob,savedon DATETIME,FOREIGN KEY(userid) REFERENCES studentdetails(userid))";
+				// if Table INTERNSHIP does not exists creating dynamic table
+				String createtable = "CREATE TABLE internship(userid varchar(20) ,intrnid int NOT NULL AUTO_INCREMENT PRIMARY KEY,intrnname varchar(80),intrndes varchar(150),startdate date,enddate date,status varchar(30),nor varchar(10),intrncert longblob,savedon timestamp,FOREIGN KEY(userid) REFERENCES studentdetails(userid))";
 				stmt.executeUpdate(createtable);
 				System.out.println("*******************internship TABLE CREATED*********************");
 			}
-			
+
 			tExists = tableDao.checkTable(con, profileTable);
 
 			if (!tExists) {
-				// if Table PROFILEPIC does not exists creating dynamic table 
+				// if Table PROFILEPIC does not exists creating dynamic table
 				String createtable = "CREATE TABLE profilepic(userid varchar(20),pic longblob,FOREIGN KEY(userid) REFERENCES studentdetails(userid))";
 				stmt.executeUpdate(createtable);
 				System.out.println("*******************profilepic TABLE CREATED*********************");
 			}
-			
-			
-					con.close();
+
+			con.close();
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			
+
 			e.printStackTrace();
 			return false;
 		}
 		return true;
 
+	}
+
+	public static void checkFunction(Timestamp t1,Timestamp t2) {
+		
 	}
 
 }
