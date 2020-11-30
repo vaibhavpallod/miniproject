@@ -136,3 +136,23 @@ mysql> select *from achivement;
 | NULL   | VAIBHAV  | zxczxC                   | 2020-11-18 | 0x576861747341707020496D61676520323032302D31312D303720617420312E31362E303920504D2E6A706567 | 2020-11-22 00:00:00 |
 +--------+----------+--------------------------+------------+--------------------------------------------------------------------------------------------+---------------------+
 14 rows in set (0.00 sec)
+/*
+    			 *
+mysql> DELIMITER $$
+					mysql> CREATE PROCEDURE get_profile_details (IN search_name VARCHAR(100))
+					    -> BEGIN
+					    -> SELECT name,bio FROM studentdetails WHERE name LIKE CONCAT ('%',search_name,'%');
+					    -> END $$
+					
+					mysql> CREATE PROCEDURE get_achievement_details (IN search_name VARCHAR(100))
+					    -> BEGIN
+					    -> SELECT userid,achname,achdes FROM achievement WHERE achname LIKE CONCAT ('%',search_name,'%');
+					    -> END $$
+					
+					
+					mysql> CREATE PROCEDURE get_internship_details (IN search_name VARCHAR(100))
+					    -> BEGIN
+					    -> SELECT userid,intrnname,intrndes FROM internship WHERE intrnname LIKE CONCAT('%',search_name,'%');
+					    -> END $$
+					mysql-> DELIMITER ;
+*/

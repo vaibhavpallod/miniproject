@@ -204,16 +204,16 @@
 
 									<form id="ach-form" name="fileform" method="post" action="EditAchievement" enctype="multipart/form-data">
 									
-									<input type="text" name="ach-id" id="ach-id" value="0" style="display:none;">
+									<input type="text" name="ach-id" id="ach-id" value="0" style="display:none;" required>
 									
 									<label for="edit_ach_name_input">Name</label> <input
-										name="ach_name" type="text" id="edit_ach_name_input">
+										name="ach_name" type="text" id="edit_ach_name_input" required>
 
 									<label for="edit_ach_description_input">Description</label>
-									<textarea name="ach_desc" id="edit_ach_description_input"></textarea>
+									<textarea name="ach_desc" id="edit_ach_description_input" required></textarea>
 
 									<label for="edit_ach_date_input">Date of Accomplishment</label>
-									<input name="ach_date" type="date" id="edit_ach_date_input">
+									<input name="ach_date" type="date" id="edit_ach_date_input" required>
 
 									<label for="edit_ach_image_input">Attach Image</label> 
 									
@@ -318,18 +318,18 @@
 							<div id="form_for_internships">
 								<p style="font-size: 25px;" id="title_edit_int">Edit Internship</p>
 								<p style="font-size: 25px; display: none;" id="title_add_int">Add Internship</p>
-				<form id="int-form" name="fileform" action="EditInternship" method="post" enctype="multipart/form-data">
+				<form id="int-form" name="fileform"  action="EditInternship"  method="post" enctype="multipart/form-data">
 				
 						<input type="text" name="int-id" id="int-id" value="0" style="display:none;">
 				
 								<label for="edit_int_name_input">Name</label> <input name="intern_name" type="text"
-									id="edit_int_name_input"> <label
+									id="edit_int_name_input" required><label
 									for="edit_int_startdate_input">Start Date</label> <input
-									name="intern_startdate"	type="date" id="edit_int_startdate_input"> <label
+									name="intern_startdate"	type="date" id="edit_int_startdate_input" required> <label
 									for="edit_int_enddate_input">End Date</label> <input
-									name="intern_enddate" type="date" id="edit_int_enddate_input"> <label
+									name="intern_enddate" type="date" id="edit_int_enddate_input" required> <label
 									for="edit_int_description_input">Description</label>
-									<textarea name="intern_desc" type="text" id="edit_int_description_input"></textarea> 
+									<textarea name="intern_desc" type="text" id="edit_int_description_input" required></textarea> 
 									<label for="edit_int_status_input">Status</label>
 									<input name="intern_status" type="text" id="edit_int_status_input">
 									<label for="edit_int_nor_input">NOR</label>
@@ -357,7 +357,7 @@
 
 		<!--PLEASE ADD COMMENTS AT EACH STEP-->
 	</div>
-
+	<script type="text/javascript" src="validation.js"></script>
 	<script type="text/javascript" src="modal_edit.js"></script>
 	
 </body>
