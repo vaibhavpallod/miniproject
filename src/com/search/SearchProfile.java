@@ -41,18 +41,18 @@ public class SearchProfile extends HttpServlet {
 					mysql> DELIMITER $$
 					mysql> CREATE PROCEDURE get_profile_details (IN search_name VARCHAR(100))
 					    -> BEGIN
-					    -> SELECT id,name,bio FROM studentdetails WHERE name,bio LIKE CONCAT ('%',search_name,'%');
+					    -> SELECT id,name,bio FROM studentdetails WHERE name LIKE CONCAT ('%',search_name,'%');
 					    -> END $$
 					
 					mysql> CREATE PROCEDURE get_achievement_details (IN search_name VARCHAR(100))
 					    -> BEGIN
-					    -> SELECT userid,achname,achdes FROM achievement WHERE achname,achdes LIKE CONCAT ('%',search_name,'%');
+					    -> SELECT userid,achname,achdes FROM achievement WHERE achname LIKE CONCAT ('%',search_name,'%');
 					    -> END $$
 					
 					
 					mysql> CREATE PROCEDURE get_internship_details (IN search_name VARCHAR(100))
 					    -> BEGIN
-					    -> SELECT userid,intrnname,intrndes FROM internship WHERE intrnname,intrndes LIKE CONCAT('%',search_name,'%');
+					    -> SELECT userid,intrnname,intrndes FROM internship WHERE intrnname LIKE CONCAT('%',search_name,'%');
 					    -> END $$
 					mysql-> DELIMITER ;
     			 */
