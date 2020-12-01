@@ -20,6 +20,9 @@ import com.user.Internship;
 import com.user.ProfilePic;
 import com.user.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class Dao {
 
 	private String passwordTable = "password";
@@ -245,16 +248,16 @@ public class Dao {
 			// studentdetails(userid))";
 
 			String q = "insert into " + achievementTable
-					+ "(userid,achname,achdes,achdate,achcert,savedon) values(?,?,?,?,?,?)";
+					+ "(userid,achname,achdes,achdate,achcert,savedon) values(?,?,?,?,?,CURRENT_TIMESTAMP)";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
 			pstmt.setString(1, achievement.getID());
 			pstmt.setString(2, achievement.getName());
 			pstmt.setString(3, achievement.getDescription());
-			pstmt.setTimestamp(4,(achievement.getTimestamp()));
+			pstmt.setDate(4,new java.sql.Date(achievement.getDate().getTime()));
 			pstmt.setBlob(5, achievement.getCertificate());
-			pstmt.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
+//			pstmt.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
 //			pstmt.setTimestamp(4, achievement.getTimestamp());
 
@@ -273,7 +276,7 @@ public class Dao {
 			// studentdetails(userid))";
 
 			String q = "update " + achievementTable
-					+ " set achname=?,achdes=?,achdate=?,achcert=?,savedon=? where achid=?";
+					+ " set achname=?,achdes=?,achdate=?,achcert=?,savedon=CURRENT_TIMESTAMP where achid=?";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -281,8 +284,8 @@ public class Dao {
 			pstmt.setString(2, achievement.getDescription());
 			pstmt.setDate(3, new java.sql.Date((achievement.getTimestamp().getTime())));
 			pstmt.setBlob(4, achievement.getCertificate());
-			pstmt.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
-			pstmt.setInt(6, achievement.getAchievementID());
+//			pstmt.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			pstmt.setInt(5, achievement.getAchievementID());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -294,7 +297,7 @@ public class Dao {
 		try {
 			Connection con = ConnectionProvider.getConnection();
 			String q = "insert into " + internshipTable
-					+ "(userid,intrnname,intrndes,startdate,enddate,status,nor,intrncert,savedon) values(?,?,?,?,?,?,?,?,?)";
+					+ "(userid,intrnname,intrndes,startdate,enddate,status,nor,intrncert,savedon) values(?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -306,7 +309,7 @@ public class Dao {
 			pstmt.setString(6, internship.getStatus());
 			pstmt.setString(7, internship.getNor());
 			pstmt.setBlob(8, internship.getCertificate());
-			pstmt.setDate(9, java.sql.Date.valueOf(java.time.LocalDate.now()));
+//			pstmt.setDate(9, java.sql.Date.valueOf(java.time.LocalDate.now()));
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -319,7 +322,7 @@ public class Dao {
 			Connection con = ConnectionProvider.getConnection();
 
 			String q = "update " + internshipTable
-					+ " set intrnname=?,intrndes=?,startdate=?,enddate=?,status=?,nor=?,intrncert=?,savedon=? where intrnid=?";
+					+ " set intrnname=?,intrndes=?,startdate=?,enddate=?,status=?,nor=?,intrncert=?,savedon=CURRENT_TIMESTAMP where intrnid=?";
 
 			PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -330,8 +333,8 @@ public class Dao {
 			pstmt.setString(5, internship.getStatus());
 			pstmt.setString(6, internship.getNor());
 			pstmt.setBlob(7, internship.getCertificate());
-			pstmt.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
-			pstmt.setInt(9, internship.getInternshipID());
+//			pstmt.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			pstmt.setInt(8, internship.getInternshipID());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {

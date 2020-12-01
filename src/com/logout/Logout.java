@@ -31,11 +31,15 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+//		session.removeAttribute("User");
+//		session.removeAttribute("UserId");
+		
 		Enumeration<String> names= session.getAttributeNames(); 
 		while(names.hasMoreElements()){
 			String attrname = (String)names.nextElement();
 			session.removeAttribute(attrname);
 		}
+		
 		response.sendRedirect("login.jsp");
 	}
 
