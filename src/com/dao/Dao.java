@@ -146,22 +146,16 @@ public class Dao {
 	private String getEncodedString(ResultSet resultSet, int i) {
 		String fileName = "image.png";
 		String encodeString = "null";
-		System.out.println("Enter");
 		try (FileOutputStream fos = new FileOutputStream(fileName)) {
 			Blob blob = null;
-			System.out.println("get   1  " + blob);
-
 			if (i == 0) {
 				blob = (Blob) resultSet.getBlob("achcert");
-				System.out.println("get xx    " + blob);
 
 			} else if (i == 1) {
 				blob = (Blob) resultSet.getBlob("intrncert");
-				System.out.println("get yy    " + blob);
 
 			} else if (i == 3) {
 				blob = (Blob) resultSet.getBlob("pic");
-				System.out.println("get zz    " + blob);
 			}
 
 			int len = (int) blob.length();
@@ -513,24 +507,21 @@ public class Dao {
 
 	public boolean compareTimestamp(Timestamp t1, Timestamp t2) {
 		Connection con = ConnectionProvider.getConnection();
-//		String function = "DELIMITER $$ \n"+" CREATE FUNCTION compareTimestamp(t1 timestamp,t2 timestamp) RETURNS bool DETERMINISTIC BEGIN DECLARE isearly BOOL;SET isearly = FALSE;IF t1<t2 THEN SET isearly=true; END IF; RETURN isearly; END end DELIMITER ;";
+//		String function = "CREATE FUNCTION compareTimestamp(t1 timestamp,t2 timestamp) RETURNS bool DETERMINISTIC BEGIN DECLARE isearly BOOL;SET isearly = FALSE;IF t1<t2 THEN SET isearly=true; END IF; RETURN isearly; END end ";//DELIMITER ;
 		String query = "SELECT student.compareTimestamp(" + "'" + t1 + "','" + t2 + "'" + ")";
 		boolean bool = false;
 		try {
-			System.out.println(1);
 			CallableStatement cstmt = con.prepareCall("{? = call compareTimestamp(?,?)}");
 			cstmt.setTimestamp(2, t1);
 			cstmt.setTimestamp(3, t2);
 			cstmt.registerOutParameter(1, Types.BOOLEAN);
 			cstmt.execute();
-			System.out.println(2);
 			bool = cstmt.getBoolean(1);  //getBoolean(0);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		System.out.println("xxxxxxxxxxxxxxxxxxxxxx   "+bool);
-
+	
 		return bool;
 	}
 
