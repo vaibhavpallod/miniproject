@@ -1,10 +1,12 @@
 package com.updateDB;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 
 import com.dao.ConnectionProvider;
 import com.dao.Dao;
@@ -111,8 +113,35 @@ public class UpdateDatabase {
 
 	}
 
-	public static void checkFunction(Timestamp t1,Timestamp t2) {
+
+	public static void checkFunction() {
+		Connection con = ConnectionProvider.getConnection();
 		
+//		String checkFuncion = "IF EXISTS (SELECT * FROM sysobjects WHERE object_id = OBJECT_ID(N'compareTimestamp') AND xtype IN (N'FN', N'IF', N'TF')) BEGIN DROP FUNCTION compareTimestamp GO ";
+//		String checkFuncion = "IF OBJECT_ID(N'student.compareTimestamp') IS NOT NULL BEGIN PRINT 'User defined function Exists' END";// DROP FUNCTION student.compareTimestamp 
+//		try {
+//			Statement stmt = con.createStatement();
+//			stmt.execute(checkFuncion);
+//			
+//			System.out.println("**************** Function deleted ****************");
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		}
+		
+		String function = "CREATE FUNCTION compareTimestamp(t1 timestamp,t2 timestamp) RETURNS bool DETERMINISTIC BEGIN DECLARE isearly BOOL;SET isearly = FALSE;IF t1<t2 THEN SET isearly=true; END IF; RETURN isearly; END ";//DELIMITER ;
+//		String query = "SELECT student.compareTimestamp(" + "'" + t1 + "','" + t2 + "'" + ")";
+		boolean bool = false;
+		try {
+			Statement stmt = con.createStatement();
+			stmt.execute(function);
+			
+			System.out.println("**************** Function Created ****************");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
 	}
 
 }
