@@ -44,7 +44,7 @@ public class SearchProfile extends HttpServlet {
 					    -> SELECT id,name,bio FROM studentdetails WHERE name LIKE CONCAT ('%',search_name,'%');
 					    -> END $$
 					
-					mysql> CREATE PROCEDURE get_achievement_details (IN search_name VARCHAR(100))z
+					mysql> CREATE PROCEDURE get_achievement_details (IN search_name VARCHAR(100))
 					    -> BEGIN
 					    -> SELECT userid,achname,achdes FROM achievement WHERE achname LIKE CONCAT ('%',search_name,'%');
 					    -> END $$

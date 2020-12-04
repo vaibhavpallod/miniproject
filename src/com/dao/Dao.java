@@ -276,7 +276,7 @@ public class Dao {
 
 			pstmt.setString(1, achievement.getName());
 			pstmt.setString(2, achievement.getDescription());
-			pstmt.setDate(3, new java.sql.Date((achievement.getTimestamp().getTime())));
+			pstmt.setDate(3, new java.sql.Date((achievement.getDate().getTime())));
 			pstmt.setBlob(4, achievement.getCertificate());
 //			pstmt.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
 			pstmt.setInt(5, achievement.getAchievementID());
