@@ -1,7 +1,7 @@
 <%@page import="java.util.Collections"%>
 <%@page import="com.user.Internship"%>
 <%@page import="com.user.Achievement"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.*"%>
 <%@page import="com.dao.Dao"%>
 <%@page import="com.user.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -35,9 +35,15 @@
 		totalPosts+=users.get(i).getAchievements().size() + users.get(i).getInternships().size();
 		achievements.addAll(users.get(i).getAchievements());
 		internships.addAll(users.get(i).getInternships());
+		
+		Comparator<Achievement> sortAchByTimestamp = ((Achievement a1,Achievement a2)->a1.getTimestamp().compareTo(a2.getTimestamp()));
+		Comparator<Internship> sortIntrnByTimestamp = ((Internship i1,Internship i2)->i1.getTimestamp().compareTo(i2.getTimestamp()));
+		
+		achievements.sort(sortAchByTimestamp);
+		internships.sort(sortIntrnByTimestamp);
+		
 		Collections.reverse(achievements);
 		Collections.reverse(internships);
-		
 		
 	}
 	%>
