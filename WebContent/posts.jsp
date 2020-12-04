@@ -98,7 +98,7 @@
          int i=0,a=0;
         while(i<internships.size() && a<achievements.size()){
          
-				String name= "",bio= "",id= "",encodedString= "",image= "",description = "";
+				String name= "",bio= "",id= "",encodedString= "",image= "",postname= "",description = "";
         		
 				System.out.println(i + " "+ a);
 				//System.out.println(achievements.get(a).getTimestamp());
@@ -111,6 +111,7 @@
         			bio = dao.getUser(id).getBio();
         			encodedString=dao.getProfilePic(id);
         			image = internships.get(i).getEndcodeString();
+        			postname=internships.get(i).getName();
         			description=internships.get(i).getDescription();
         			i++;	
         			}
@@ -121,6 +122,7 @@
         			bio = dao.getUser(id).getBio();
         			encodedString=dao.getProfilePic(id);
         			image = achievements.get(a).getEncodedString();
+        			postname=achievements.get(a).getName();
         			description=achievements.get(a).getDescription();
         			a++;	
         		}
@@ -160,12 +162,12 @@
                         </div>
                     </div>
                 </header>
+                
+                <p style="font-size:25px; margin-left:10px;"><%=postname %></p>
         
                 <span  class="description">
                     <span dir="ltr" style="font-size: 20px;"><%=description %><br><br></span>
                 </span>
-                <span class="readmore">
-                    read more...</span>
                 <div class="descimage">
                     <img  src="data:image/png;base64,<%=image%>" style=" width: 500px;height: 300px;">
                 </div>
@@ -175,13 +177,14 @@
  <% 
         while(i<internships.size()){
          
-				String name= "",bio= "",id= "",encodedString= "",image= "",description = "";
+				String name= "",bio= "",id= "",encodedString= "",image= "",postname= "",description = "";
         		
 				id=internships.get(i).getID();
     			name=dao.getName(id);
     			bio = dao.getUser(id).getBio();
     			encodedString=dao.getProfilePic(id);
     			image = internships.get(i).getEndcodeString();
+    			postname=internships.get(i).getName();
     			description=internships.get(i).getDescription();
     			i++;	
 				
@@ -220,12 +223,12 @@
                         </div>
                     </div>
                 </header>
+                
+                <p style="font-size:25px; margin-left:10px;"><%=postname %></p>
         
                 <span  class="description">
-                    <span dir="ltr"><%=description %><br><br></span>
+                    <span dir="ltr" style="font-size: 20px;"><%=description %><br><br></span>
                 </span>
-                <span class="readmore">
-                    read more...</span>
                 <div class="descimage">
                     <img  src="data:image/png;base64,<%=image%>" style=" width: 500px;height: 300px;">
                 </div>
@@ -235,13 +238,14 @@
 <% 
         while(a<achievements.size()){
          
-				String name= "",bio= "",id= "",encodedString= "",image= "",description = "";
+				String name= "",bio= "",id= "",encodedString= "",image= "",postname= "",description = "";
         		
 				id=achievements.get(a).getID();
     			name=dao.getName(id);
     			bio = dao.getUser(id).getBio();
     			encodedString=dao.getProfilePic(id);
     			image = achievements.get(a).getEncodedString();
+    			postname=achievements.get(a).getName();
     			description=achievements.get(a).getDescription();
     			a++;	
 				
@@ -280,12 +284,12 @@
                         </div>
                     </div>
                 </header>
+                
+                <p style="font-size:25px; margin-left:10px;"><%=postname %></p>
         
                 <span  class="description">
-                    <span dir="ltr"><%=description %><br><br></span>
+                    <span dir="ltr" style="font-size: 20px;"><%=description %><br><br></span>
                 </span>
-                <span class="readmore">
-                    read more...</span>
                 <div class="descimage">
                     <img  src="data:image/png;base64,<%=image%>" style=" width: 500px;height: 300px;">
                 </div>
