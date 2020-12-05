@@ -13,7 +13,7 @@ import com.dao.Dao;
 
 public class UpdateDatabase {
 
-	public static void checkdabase() {
+	public static void checkdatabase() {
 		String database = "student";
 		Connection con = ConnectionProvider.getConnection();
 		Dao tableDao = new Dao();
@@ -131,7 +131,6 @@ public class UpdateDatabase {
 		
 		String function = "CREATE FUNCTION compareTimestamp(t1 timestamp,t2 timestamp) RETURNS bool DETERMINISTIC BEGIN DECLARE isearly BOOL;SET isearly = FALSE;IF t1<t2 THEN SET isearly=true; END IF; RETURN isearly; END ";//DELIMITER ;
 //		String query = "SELECT student.compareTimestamp(" + "'" + t1 + "','" + t2 + "'" + ")";
-		boolean bool = false;
 		try {
 			Statement stmt = con.createStatement();
 			stmt.execute(function);
