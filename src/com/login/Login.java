@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
 		System.out.println(new Timestamp(System.currentTimeMillis()));
 		Dao dao = new Dao();
 		if (dao.checkIdAndPassword(id, password)) {
-			UpdateDatabase.checkdabase();
+			UpdateDatabase.checkdatabase();
 			UpdateDatabase.checkFunction();
 			if (UpdateDatabase.Checktables()) {
 				session.setAttribute("User", dao.getUser(id));
