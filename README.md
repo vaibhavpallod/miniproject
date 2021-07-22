@@ -27,7 +27,15 @@ You will need to have installed following on your pc.
 
 ## Screenshots
   ![image](https://user-images.githubusercontent.com/62668247/126648727-ad6ea28f-f225-462e-8b8a-e3ae712a3a16.png)
+![image](https://user-images.githubusercontent.com/62668247/126648815-9dff6033-4fb2-4275-bc26-7dcf30b6a5de.png)
+![image](https://user-images.githubusercontent.com/62668247/126649195-323ea30c-cc24-42f2-a38b-ceadef2813d4.png)
 
+
+## Need of Project
+  - Make students informative for the skill development.
+  - To create a competitive environment between all student groups.
+  - The students need to work together on their development which can be done by this platform.
+  
 
 
 ## ER Diagram
@@ -38,12 +46,6 @@ You will need to have installed following on your pc.
 
 ![image](https://user-images.githubusercontent.com/62668247/126648640-fef399d0-e41b-4e78-a035-b147fa519631.png)
 
-
-## Need of Project
-  - Make students informative for the skill development.
-  - To create a competitive environment between all student groups.
-  - The students need to work together on their development which can be done by this platform.
-  
 
 ## Future Scope
  -It helps students from freshers to alumni to interact and learn new skills and requirements of industry.
