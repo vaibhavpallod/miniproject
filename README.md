@@ -18,10 +18,10 @@ You will need to have installed following on your pc.
 
 
 ## Functionalities
-  -Track the skills and achievements.
-  -Search the students as per their experience.
-  -Join the network with your details.
-  -Know all the students in network.
+  - Track the skills and achievements.
+  - Search the students as per their experience.
+  - Join the network with your details.
+  - Know all the students in network.
 
 ## Screenshots
   ![image](https://user-images.githubusercontent.com/62668247/126648727-ad6ea28f-f225-462e-8b8a-e3ae712a3a16.png)
@@ -46,12 +46,12 @@ You will need to have installed following on your pc.
 
 
 ## Future Scope
- -It helps students from freshers to alumni to interact and learn new skills and requirements of industry.
- -It creates competitive and learning atmosphere around the students.
- -Students remain connected to their peers.
- -College can track student’s development.
- -Students can choose their domains by looking and working with their senior groups.
- -Mentors can help their students to excel in their domains.
+ - It helps students from freshers to alumni to interact and learn new skills and requirements of industry.
+ - It creates competitive and learning atmosphere around the students.
+ - Students remain connected to their peers.
+ - College can track student’s development.
+ - Students can choose their domains by looking and working with their senior groups.
+ - Mentors can help their students to excel in their domains.
 
 
   
